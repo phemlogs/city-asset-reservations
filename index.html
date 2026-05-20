@@ -677,254 +677,203 @@ async function submitRequest() {
 // Bold inline field labels, correct row structure, no emojis.
 // ============================================================
 function generateICS213(data, selectedAssets) {
-  var jsPDF = window.jspdf.jsPDF;
-  var doc = new jsPDF({ unit: 'pt', format: 'letter' });
-  var pageW = 612;
-  var margin = 36;
-  var fw = pageW - margin * 2; // 540pt
-  var y = margin;
+  const { jsPDF } = window.jspdf;
 
-  var LH = 13; // line height for body text
+  const doc = new jsPDF({
+    unit: 'pt',
+    format: 'letter'
+  });
 
-  // ── Title ────────────────────────────────────────────────
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(14);
-  doc.setTextColor(0);
-  doc.text('GENERAL MESSAGE (ICS 213)', pageW / 2, y + 14, { align: 'center' });
-  y += 28;
+  // Page setup
+  const pageW = 612;
+  const margin = 36;
+  const formW = pageW - margin * 2;
+  let y = 54;
 
-  // ── Helper: draw outer rect + bold inline label + normal value
-  // labelBold  = the "1. Incident Name (Optional):" portion (bold)
-  // value      = the plain text value that follows on the same line
-  // boxH       = total height of the box
-  // noTopBorder = skip top border (for boxes that share a border with prev)
-  function inlineRow(labelBold, value, boxH) {
-    doc.setDrawColor(0);
-    doc.setLineWidth(0.75);
-    doc.rect(margin, y, fw, boxH);
+  // Basic black-and-white FEMA-style form. No blue, no gold, no emojis.
+  doc.setTextColor(0, 0, 0);
+  doc.setDrawColor(0, 0, 0);
+  doc.setLineWidth(1);
 
-    var textY = y + (boxH / 2) + 4;
-
-    // bold label
+  function textBold(txt, x, y, size = 10, options) {
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(10);
-    doc.setTextColor(0);
-    doc.text(labelBold, margin + 4, textY);
-
-    // measure bold label width so value starts right after
-    var labelW = doc.getTextWidth(labelBold);
-
-    // normal value
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(10);
-    doc.text(String(value || ''), margin + 4 + labelW + 2, textY);
-
-    y += boxH;
+    doc.setFontSize(size);
+    doc.text(String(txt || ''), x, y, options || {});
   }
 
-  // ── Helper: row with field 4 (wide) + field 5 + field 6 (narrow)
-  // Matches FEMA layout: Subject spans ~60%, Date ~20%, Time ~20%
-  function row456(subject, date, time, boxH) {
-    doc.setDrawColor(0);
-    doc.setLineWidth(0.75);
-    doc.rect(margin, y, fw, boxH);
-
-    var w4 = Math.round(fw * 0.60);
-    var w5 = Math.round(fw * 0.20);
-    var w6 = fw - w4 - w5;
-    var x5 = margin + w4;
-    var x6 = margin + w4 + w5;
-
-    doc.line(x5, y, x5, y + boxH);
-    doc.line(x6, y, x6, y + boxH);
-
-    var textY = y + (boxH / 2) + 4;
-
-    // Field 4
-    doc.setFont('helvetica', 'bold'); doc.setFontSize(10);
-    doc.text('4. Subject: ', margin + 4, textY);
-    var lw4 = doc.getTextWidth('4. Subject: ');
+  function textNormal(txt, x, y, size = 10, options) {
     doc.setFont('helvetica', 'normal');
-    doc.text(String(subject || ''), margin + 4 + lw4, textY);
-
-    // Field 5
-    doc.setFont('helvetica', 'bold');
-    doc.text('5. Date: ', x5 + 4, textY);
-    var lw5 = doc.getTextWidth('5. Date: ');
-    doc.setFont('helvetica', 'normal');
-    doc.text(String(date || ''), x5 + 4 + lw5, textY);
-
-    // Field 6
-    doc.setFont('helvetica', 'bold');
-    doc.text('6. Time ', x6 + 4, textY);
-    var lw6 = doc.getTextWidth('6. Time ');
-    doc.setFont('helvetica', 'normal');
-    doc.text(String(time || ''), x6 + 4 + lw6, textY);
-
-    y += boxH;
+    doc.setFontSize(size);
+    doc.text(String(txt || ''), x, y, options || {});
   }
 
-  // ── Helper: message box — bold "7. Message:" label then multiline body
-  function messageBox(lines, boxH) {
-    doc.setDrawColor(0);
-    doc.setLineWidth(0.75);
-    doc.rect(margin, y, fw, boxH);
+  function drawBox(x, y, w, h) {
+    doc.rect(x, y, w, h);
+  }
 
-    var tx = margin + 4;
-    var ty = y + 14;
-
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(10);
-    doc.text('7. Message:', tx, ty);
-    ty += LH + 2;
-
+  function fitText(text, maxWidth) {
+    text = String(text || '');
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(10);
-    for (var i = 0; i < lines.length; i++) {
-      if (lines[i] !== '') doc.text(lines[i], tx, ty);
-      ty += LH;
+    while (doc.getTextWidth(text) > maxWidth && text.length > 0) {
+      text = text.slice(0, -1);
     }
-
-    y += boxH;
+    return text;
   }
 
-  // ── Helper: single-line row with 3 inline segments (fields 8 and 10)
-  // segs = [{bold, value}, {bold, value}, {bold, value}]
-  function inlineSegRow(segs, boxH) {
-    doc.setDrawColor(0);
-    doc.setLineWidth(0.75);
-    doc.rect(margin, y, fw, boxH);
+  function formatShortDate(dateStr) {
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return '';
+    return `${d.getMonth() + 1}/${d.getDate()}/${String(d.getFullYear()).slice(-2)}`;
+  }
 
-    var tx = margin + 4;
-    var textY = y + (boxH / 2) + 4;
-    var segW = fw / segs.length;
+  function formatSubmitTime(isoStr) {
+    const d = isoStr ? new Date(isoStr) : new Date();
+    if (isNaN(d.getTime())) return '';
+    return d.toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true
+    });
+  }
 
-    for (var i = 0; i < segs.length; i++) {
-      var sx = margin + 4 + i * segW;
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(10);
-      doc.text(segs[i].bold, sx, textY);
-      var bw = doc.getTextWidth(segs[i].bold);
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(10);
-      // value with underline spacer if empty
-      var val = segs[i].value || '';
-      doc.text(val, sx + bw + 2, textY);
-      // draw a blank underline if no value
-      if (!val) {
-        var lineEndX = Math.min(sx + segW - 8, margin + fw - 4);
-        doc.setLineWidth(0.5);
-        doc.line(sx + bw + 2, textY + 2, lineEndX, textY + 2);
-        doc.setLineWidth(0.75);
-      }
+  function labelThenValue(label, value, x, y, valueMaxWidth) {
+    textBold(label, x, y);
+    const labelW = doc.getTextWidth(label);
+    textNormal(fitText(value, valueMaxWidth || 400), x + labelW + 2, y);
+  }
+
+  const x = margin;
+
+  // Title
+  textBold('GENERAL MESSAGE (ICS 213)', pageW / 2, y, 14, { align: 'center' });
+  y += 16;
+
+  // 1. Incident Name
+  drawBox(x, y, formW, 24);
+  labelThenValue('1. Incident Name (Optional): ', data.eventName, x + 6, y + 16, 350);
+  y += 24;
+
+  // 2. To
+  drawBox(x, y, formW, 38);
+  textBold('2. To (Name and Position):', x + 6, y + 14);
+  textNormal('Worsham Warehouse/Logistics Team', x + 6, y + 29);
+  y += 38;
+
+  // 3. From
+  drawBox(x, y, formW, 38);
+  textBold('3. From (Name and Position):', x + 6, y + 14);
+  textNormal(fitText(`${data.pocName}, ${data.pocDept}`, 450), x + 6, y + 29);
+  y += 38;
+
+  // 4 / 5 / 6 row
+  const row456H = 40;
+  const subjectW = 350;
+  const dateW = 95;
+  const timeW = formW - subjectW - dateW;
+
+  drawBox(x, y, formW, row456H);
+  doc.line(x + subjectW, y, x + subjectW, y + row456H);
+  doc.line(x + subjectW + dateW, y, x + subjectW + dateW, y + row456H);
+
+  textBold('4. Subject:', x + 6, y + 15);
+  textNormal('Asset Reservation Request', x + 6, y + 30);
+
+  textBold('5. Date:', x + subjectW + 6, y + 15);
+  textNormal(formatShortDate(data.submittedAt || data.pickupDate), x + subjectW + 6, y + 30);
+
+  textBold('6. Time', x + subjectW + dateW + 6, y + 15);
+  textNormal(formatSubmitTime(data.submittedAt), x + subjectW + dateW + 6, y + 30);
+
+  y += row456H;
+
+  // 7. Message
+  const messageH = 300;
+  drawBox(x, y, formW, messageH);
+  textBold('7. Message:', x + 6, y + 15);
+
+  let msgY = y + 36;
+  const msgX = x + 8;
+  const lineH = 14;
+
+  function msgLine(text, bold = false) {
+    if (bold) {
+      textBold(text, msgX, msgY, 10);
+    } else {
+      textNormal(text, msgX, msgY, 10);
     }
-    y += boxH;
+    msgY += lineH;
   }
 
-  // ── Helper: empty box with bold label (fields 9 and footer)
-  function emptyLabelBox(boldLabel, boxH) {
-    doc.setDrawColor(0);
-    doc.setLineWidth(0.75);
-    doc.rect(margin, y, fw, boxH);
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(10);
-    doc.text(boldLabel, margin + 4, y + 14);
-    y += boxH;
-  }
+  msgLine(`Reference Number: ${data.refNumber}`);
+  msgY += 8;
 
-  // ── Helper: bottom ICS 213 footer row (split left/right)
-  function footerRow(boxH) {
-    doc.setDrawColor(0);
-    doc.setLineWidth(0.75);
-    doc.rect(margin, y, fw, boxH);
+  msgLine('A reservation request has been submitted for the following city assets:');
 
-    var half = Math.round(fw * 0.25);
-    doc.line(margin + half, y, margin + half, y + boxH);
+  selectedAssets.forEach(asset => {
+    const qty = data.quantities[asset.id] || 0;
+    // Do not use emoji/icons in PDF. jsPDF cannot render them correctly.
+    msgLine(`${asset.name.toUpperCase()}: ${qty} unit${qty !== 1 ? 's' : ''}`);
+  });
 
-    var textY = y + (boxH / 2) + 4;
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(10);
-    doc.text('ICS 213', margin + 4, textY);
+  msgY += 4;
+  msgLine(`EVENT: ${data.eventName}`);
+  msgLine(`PICKUP DATE: ${formatDate(data.pickupDate)}`);
+  msgLine(`RETURN DATE: ${formatDate(data.returnDate)}`);
+  msgLine(`DEPT / ORG: ${data.pocDept}`);
+  msgLine(`CONTACT: ${data.pocName} | ${data.pocEmail} | ${data.pocPhone}`);
+  msgY += 4;
+  msgLine('STATUS: PENDING APPROVAL BY WAREHOUSE/LOGISTICS TEAM');
 
-    doc.setFont('helvetica', 'bold');
-    doc.text('Date/Time: ', margin + half + 4, textY);
-    var dtW = doc.getTextWidth('Date/Time: ');
-    doc.setFont('helvetica', 'normal');
-    doc.text(new Date().toLocaleString(), margin + half + 4 + dtW, textY);
+  y += messageH;
 
-    y += boxH;
-  }
+  // 8. Approved by
+  const approvedH = 26;
+  drawBox(x, y, formW, approvedH);
+  textBold('8. Approved by:', x + 6, y + 17);
 
-  // ═══════════════════════════════════════════════
-  // BUILD THE FORM
-  // ═══════════════════════════════════════════════
+  textNormal('Name:', x + 104, y + 17);
+  doc.line(x + 140, y + 19, x + 220, y + 19);
 
-  // Field 1
-  inlineRow('1. Incident Name (Optional): ', data.eventName, 24);
+  textNormal('Signature:', x + 228, y + 17);
+  doc.line(x + 287, y + 19, x + 400, y + 19);
 
-  // Field 2
-  inlineRow('2. To (Name and Position): ', 'HE-CDER Warehouse Team', 24);
+  textNormal('Position/Title:', x + 408, y + 17);
+  doc.line(x + 486, y + 19, x + formW - 8, y + 19);
 
-  // Field 3
-  inlineRow('3. From (Name and Position): ', data.pocName + ', ' + data.pocDept, 24);
+  y += approvedH;
 
-  // Fields 4 / 5 / 6
-  var submitDate = data.submittedAt ? data.submittedAt.split('T')[0] : data.pickupDate;
-  var d = new Date(data.submittedAt);
-  var hh = d.getHours();
-  var mm = d.getMinutes().toString().padStart(2,'0');
-  var ampm = hh >= 12 ? 'PM' : 'AM';
-  hh = hh % 12 || 12;
-  var submitTime = hh + ':' + mm + ' ' + ampm;
+  // 9. Reply
+  const replyH = 235;
+  drawBox(x, y, formW, replyH);
+  textBold('9. Reply:', x + 6, y + 15);
+  y += replyH;
 
-  row456(
-    'Asset Reservation Request',
-    submitDate,
-    submitTime,
-    24
-  );
+  // 10. Replied by
+  const repliedH = 26;
+  drawBox(x, y, formW, repliedH);
+  textBold('10. Replied by:', x + 6, y + 17);
 
-  // Field 7 — build message lines, NO emojis
-  var msgLines = [];
-  msgLines.push('Reference Number: ' + data.refNumber);
-  msgLines.push('');
-  msgLines.push('A reservation request has been submitted for the following city assets:');
+  textNormal('Name:', x + 96, y + 17);
+  doc.line(x + 132, y + 19, x + 220, y + 19);
 
-  for (var ai = 0; ai < selectedAssets.length; ai++) {
-    msgLines.push('  ' + selectedAssets[ai].name.toUpperCase() + ': ' + data.quantities[selectedAssets[ai].id] + ' unit(s)');
-  }
+  textNormal('Position/Title:', x + 228, y + 17);
+  doc.line(x + 306, y + 19, x + 400, y + 19);
 
-  msgLines.push('');
-  msgLines.push('EVENT: ' + data.eventName);
-  msgLines.push('PICKUP DATE: ' + formatDate(data.pickupDate));
-  msgLines.push('RETURN DATE: ' + formatDate(data.returnDate));
-  msgLines.push('DEPT / ORG: ' + data.pocDept);
-  msgLines.push('CONTACT: ' + data.pocName + ' | ' + data.pocEmail + ' | ' + data.pocPhone);
-  msgLines.push('');
-  msgLines.push('Status: PENDING APPROVAL by HE-CDER Warehouse Team');
+  textNormal('Signature:', x + 408, y + 17);
+  doc.line(x + 468, y + 19, x + formW - 8, y + 19);
 
-  var msgBoxH = 28 + (msgLines.length * LH) + 10;
-  messageBox(msgLines, msgBoxH);
+  y += repliedH;
 
-  // Field 8 — Approved by (inline segments, no box dividers)
-  inlineSegRow([
-    { bold: '8. Approved by:  Name: ', value: '' },
-    { bold: 'Signature: ',             value: '' },
-    { bold: 'Position/Title: ',        value: '' }
-  ], 24);
+  // Footer row
+  const footerH = 22;
+  drawBox(x, y, formW, footerH);
+  doc.line(x + 216, y, x + 216, y + footerH);
 
-  // Field 9 — Reply (large empty box)
-  emptyLabelBox('9. Reply:', 120);
-
-  // Field 10 — Replied by
-  inlineSegRow([
-    { bold: '10. Replied by:  Name: ', value: '' },
-    { bold: 'Position/Title: ',        value: '' },
-    { bold: 'Signature: ',             value: '' }
-  ], 24);
-
-  // ICS 213 footer row
-  footerRow(20);
+  textBold('ICS 213', x + 6, y + 15);
+  textBold('Date/Time:', x + 224, y + 15);
+  doc.line(x + 284, y + 17, x + formW - 8, y + 17);
 
   return doc.output('datauristring').split(',')[1];
 }
