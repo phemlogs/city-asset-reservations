@@ -34,7 +34,6 @@
       radial-gradient(ellipse at 80% 100%, rgba(26,52,96,0.8) 0%, transparent 60%);
   }
 
-  /* HEADER */
   header {
     border-bottom: 1px solid var(--border);
     padding: 0 48px;
@@ -49,11 +48,7 @@
     z-index: 100;
   }
 
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
+  .logo { display: flex; align-items: center; gap: 14px; }
 
   .logo-icon {
     width: 38px;
@@ -93,12 +88,7 @@
     letter-spacing: 0.1em;
   }
 
-  /* MAIN LAYOUT */
-  main {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 48px 32px 80px;
-  }
+  main { max-width: 1100px; margin: 0 auto; padding: 48px 32px 80px; }
 
   .page-title {
     font-size: 36px;
@@ -118,614 +108,113 @@
     margin-bottom: 48px;
   }
 
-  /* STEPS */
-  .steps {
-    display: flex;
-    gap: 0;
-    margin-bottom: 40px;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    overflow: hidden;
-  }
-
-  .step {
-    flex: 1;
-    padding: 14px 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    border-right: 1px solid var(--border);
-    background: var(--navy-mid);
-    opacity: 0.4;
-    transition: all 0.3s;
-    cursor: default;
-  }
-
+  .steps { display: flex; gap: 0; margin-bottom: 40px; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .step { flex: 1; padding: 14px 20px; display: flex; align-items: center; gap: 12px; border-right: 1px solid var(--border); background: var(--navy-mid); opacity: 0.4; transition: all 0.3s; cursor: default; }
   .step:last-child { border-right: none; }
   .step.active { opacity: 1; background: var(--gold-dim); }
   .step.done { opacity: 0.7; }
+  .step-num { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gold); background: rgba(201,168,76,0.1); border: 1px solid var(--border); width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step.done .step-num { background: var(--gold); color: var(--navy); }
+  .step-label { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
 
-  .step-num {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--gold);
-    background: rgba(201,168,76,0.1);
-    border: 1px solid var(--border);
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .step.done .step-num {
-    background: var(--gold);
-    color: var(--navy);
-  }
-
-  .step-label {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  /* SECTIONS */
-  .section {
-    display: none;
-    animation: fadeUp 0.4s ease;
-  }
-
+  .section { display: none; animation: fadeUp 0.4s ease; }
   .section.active { display: block; }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* CALENDAR */
-  .calendar-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-
-  .cal-nav {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .cal-month {
-    font-size: 22px;
-    font-weight: 700;
-    min-width: 200px;
-    text-align: center;
-  }
-
-  .cal-btn {
-    background: var(--navy-mid);
-    border: 1px solid var(--border);
-    color: var(--gold);
-    width: 36px;
-    height: 36px;
-    border-radius: 2px;
-    cursor: pointer;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-  }
-
+  .calendar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .cal-nav { display: flex; align-items: center; gap: 16px; }
+  .cal-month { font-size: 22px; font-weight: 700; min-width: 200px; text-align: center; }
+  .cal-btn { background: var(--navy-mid); border: 1px solid var(--border); color: var(--gold); width: 36px; height: 36px; border-radius: 2px; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
   .cal-btn:hover { background: var(--gold-dim); }
-
-  .calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 3px;
-    margin-bottom: 16px;
-  }
-
-  .cal-day-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--grey);
-    text-align: center;
-    padding: 8px 0;
-    letter-spacing: 0.1em;
-  }
-
-  .cal-day {
-    aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    font-weight: 600;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: all 0.15s;
-    border: 1px solid transparent;
-    position: relative;
-  }
-
-  .cal-day:hover:not(.empty):not(.past) {
-    background: var(--gold-dim);
-    border-color: var(--border);
-  }
-
+  .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; margin-bottom: 16px; }
+  .cal-day-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--grey); text-align: center; padding: 8px 0; letter-spacing: 0.1em; }
+  .cal-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; border-radius: 3px; cursor: pointer; transition: all 0.15s; border: 1px solid transparent; position: relative; }
+  .cal-day:hover:not(.empty):not(.past) { background: var(--gold-dim); border-color: var(--border); }
   .cal-day.empty { cursor: default; }
   .cal-day.past { opacity: 0.2; cursor: not-allowed; }
+  .cal-day.selected-start, .cal-day.selected-end { background: var(--gold); color: var(--navy); font-weight: 700; }
+  .cal-day.in-range { background: var(--gold-dim); border-radius: 0; }
+  .cal-day.today { border-color: var(--gold); }
 
-  .cal-day.selected-start,
-  .cal-day.selected-end {
-    background: var(--gold);
-    color: var(--navy);
-    font-weight: 700;
-  }
-
-  .cal-day.in-range {
-    background: var(--gold-dim);
-    border-radius: 0;
-  }
-
-  .cal-day.today {
-    border-color: var(--gold);
-  }
-
-  /* AVAILABILITY PANEL */
-  .avail-panel {
-    background: var(--navy-mid);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 20px 24px;
-    margin-top: 16px;
-    min-height: 80px;
-  }
-
-  .avail-title {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--gold);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-  }
-
-  .avail-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 10px;
-  }
-
-  .avail-item {
-    background: var(--navy);
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    padding: 12px 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
+  .avail-panel { background: var(--navy-mid); border: 1px solid var(--border); border-radius: 4px; padding: 20px 24px; margin-top: 16px; min-height: 80px; }
+  .avail-title { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; }
+  .avail-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+  .avail-item { background: var(--navy); border: 1px solid var(--border); border-radius: 3px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; }
   .avail-item.available { border-color: rgba(76,175,130,0.4); }
   .avail-item.unavailable { border-color: rgba(224,85,85,0.4); }
   .avail-item.partial { border-color: rgba(201,168,76,0.5); }
-
-  .avail-item-name {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--grey);
-  }
-
-  .avail-item-count {
-    font-size: 22px;
-    font-weight: 800;
-    line-height: 1;
-  }
-
+  .avail-item-name { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grey); }
+  .avail-item-count { font-size: 22px; font-weight: 800; line-height: 1; }
   .avail-item.available .avail-item-count { color: var(--green); }
   .avail-item.unavailable .avail-item-count { color: var(--red); }
   .avail-item.partial .avail-item-count { color: var(--gold); }
+  .avail-item-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--grey); }
+  .avail-placeholder { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--grey); text-align: center; padding: 10px 0; }
 
-  .avail-item-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--grey);
-  }
+  .date-display { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+  .date-chip { background: var(--gold-dim); border: 1px solid var(--border); border-radius: 2px; padding: 8px 16px; font-family: 'DM Mono', monospace; font-size: 12px; color: var(--gold); display: flex; align-items: center; gap: 8px; }
+  .date-chip-label { color: var(--grey); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; }
 
-  .avail-placeholder {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: var(--grey);
-    text-align: center;
-    padding: 10px 0;
-  }
-
-  /* DATE DISPLAY */
-  .date-display {
-    display: flex;
-    gap: 12px;
-    margin-top: 16px;
-    flex-wrap: wrap;
-  }
-
-  .date-chip {
-    background: var(--gold-dim);
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    padding: 8px 16px;
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: var(--gold);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .date-chip-label {
-    color: var(--grey);
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
-  /* FORM */
-  .form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .form-grid.full { grid-template-columns: 1fr; }
-
-  .field {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .field label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--gold);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .field input, .field select {
-    background: var(--navy-mid);
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    color: var(--white);
-    font-family: 'Syne', sans-serif;
-    font-size: 14px;
-    padding: 10px 14px;
-    outline: none;
-    transition: border-color 0.2s;
-    width: 100%;
-  }
-
-  .field input:focus, .field select:focus {
-    border-color: var(--gold);
-  }
-
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; }
+  .field input, .field select { background: var(--navy-mid); border: 1px solid var(--border); border-radius: 3px; color: var(--white); font-family: 'Syne', sans-serif; font-size: 14px; padding: 10px 14px; outline: none; transition: border-color 0.2s; width: 100%; }
+  .field input:focus, .field select:focus { border-color: var(--gold); }
   .field input::placeholder { color: var(--grey); }
   .field select option { background: var(--navy-mid); }
 
-  /* ASSET QTY INPUTS */
-  .asset-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 12px;
-    margin: 20px 0;
-  }
+  .asset-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin: 20px 0; }
+  .asset-card { background: var(--navy-mid); border: 1px solid var(--border); border-radius: 4px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+  .asset-card-top { display: flex; align-items: center; justify-content: space-between; }
+  .asset-icon { font-size: 22px; }
+  .asset-name { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--grey); }
+  .asset-avail-badge { font-family: 'DM Mono', monospace; font-size: 10px; padding: 3px 8px; border-radius: 2px; border: 1px solid; }
+  .asset-avail-badge.ok { color: var(--green); border-color: rgba(76,175,130,0.3); background: rgba(76,175,130,0.08); }
+  .asset-avail-badge.none { color: var(--red); border-color: rgba(224,85,85,0.3); background: rgba(224,85,85,0.08); }
 
-  .asset-card {
-    background: var(--navy-mid);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .asset-card-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .asset-icon {
-    font-size: 22px;
-  }
-
-  .asset-name {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--grey);
-  }
-
-  .asset-avail-badge {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    padding: 3px 8px;
-    border-radius: 2px;
-    border: 1px solid;
-  }
-
-  .asset-avail-badge.ok {
-    color: var(--green);
-    border-color: rgba(76,175,130,0.3);
-    background: rgba(76,175,130,0.08);
-  }
-
-  .asset-avail-badge.none {
-    color: var(--red);
-    border-color: rgba(224,85,85,0.3);
-    background: rgba(224,85,85,0.08);
-  }
-
-  .qty-control {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .qty-btn {
-    width: 28px;
-    height: 28px;
-    background: var(--navy);
-    border: 1px solid var(--border);
-    color: var(--gold);
-    border-radius: 2px;
-    cursor: pointer;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s;
-    flex-shrink: 0;
-  }
-
+  .qty-control { display: flex; align-items: center; gap: 8px; }
+  .qty-btn { width: 28px; height: 28px; background: var(--navy); border: 1px solid var(--border); color: var(--gold); border-radius: 2px; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; flex-shrink: 0; }
   .qty-btn:hover { background: var(--gold-dim); }
   .qty-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+  .qty-input { background: var(--navy); border: 1px solid var(--border); border-radius: 2px; color: var(--white); font-family: 'DM Mono', monospace; font-size: 16px; font-weight: 500; text-align: center; width: 52px; padding: 4px; outline: none; }
 
-  .qty-input {
-    background: var(--navy);
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    color: var(--white);
-    font-family: 'DM Mono', monospace;
-    font-size: 16px;
-    font-weight: 500;
-    text-align: center;
-    width: 52px;
-    padding: 4px;
-    outline: none;
-  }
-
-  /* BUTTONS */
-  .btn {
-    font-family: 'Syne', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 13px 28px;
-    border-radius: 3px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .btn-primary {
-    background: var(--gold);
-    color: var(--navy);
-  }
-
+  .btn { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 13px 28px; border-radius: 3px; border: none; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-primary { background: var(--gold); color: var(--navy); }
   .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
   .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-
-  .btn-ghost {
-    background: transparent;
-    color: var(--grey);
-    border: 1px solid var(--border);
-  }
-
+  .btn-ghost { background: transparent; color: var(--grey); border: 1px solid var(--border); }
   .btn-ghost:hover { color: var(--white); border-color: var(--grey); }
+  .btn-row { display: flex; gap: 12px; margin-top: 28px; align-items: center; }
 
-  .btn-row {
-    display: flex;
-    gap: 12px;
-    margin-top: 28px;
-    align-items: center;
-  }
+  .section-header { margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+  .section-title { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .section-desc { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--grey); letter-spacing: 0.06em; }
+  .divider { height: 1px; background: var(--border); margin: 24px 0; }
 
-  /* SECTION HEADER */
-  .section-header {
-    margin-bottom: 24px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--border);
-  }
+  .review-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+  .review-item { background: var(--navy-mid); border: 1px solid var(--border); border-radius: 3px; padding: 14px 16px; }
+  .review-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+  .review-value { font-size: 15px; font-weight: 600; }
+  .review-assets { background: var(--navy-mid); border: 1px solid var(--border); border-radius: 3px; padding: 14px 16px; grid-column: 1 / -1; }
+  .review-asset-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .review-asset-chip { background: var(--gold-dim); border: 1px solid var(--border); border-radius: 2px; padding: 6px 14px; font-family: 'DM Mono', monospace; font-size: 12px; color: var(--gold); }
 
-  .section-title {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 4px;
-  }
+  .success-box { text-align: center; padding: 60px 40px; }
+  .success-icon { font-size: 56px; margin-bottom: 20px; }
+  .success-title { font-size: 28px; font-weight: 800; margin-bottom: 10px; }
+  .success-sub { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--grey); line-height: 1.8; letter-spacing: 0.06em; }
+  .success-ref { display: inline-block; margin-top: 20px; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 3px; padding: 10px 20px; font-family: 'DM Mono', monospace; font-size: 13px; color: var(--gold); letter-spacing: 0.1em; }
 
-  .section-desc {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--grey);
-    letter-spacing: 0.06em;
-  }
-
-  /* DIVIDER */
-  .divider {
-    height: 1px;
-    background: var(--border);
-    margin: 24px 0;
-  }
-
-  /* REVIEW */
-  .review-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-
-  .review-item {
-    background: var(--navy-mid);
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    padding: 14px 16px;
-  }
-
-  .review-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--gold);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-
-  .review-value {
-    font-size: 15px;
-    font-weight: 600;
-  }
-
-  .review-assets {
-    background: var(--navy-mid);
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    padding: 14px 16px;
-    grid-column: 1 / -1;
-  }
-
-  .review-asset-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 8px;
-  }
-
-  .review-asset-chip {
-    background: var(--gold-dim);
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    padding: 6px 14px;
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: var(--gold);
-  }
-
-  /* SUCCESS */
-  .success-box {
-    text-align: center;
-    padding: 60px 40px;
-  }
-
-  .success-icon {
-    font-size: 56px;
-    margin-bottom: 20px;
-  }
-
-  .success-title {
-    font-size: 28px;
-    font-weight: 800;
-    margin-bottom: 10px;
-  }
-
-  .success-sub {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: var(--grey);
-    line-height: 1.8;
-    letter-spacing: 0.06em;
-  }
-
-  .success-ref {
-    display: inline-block;
-    margin-top: 20px;
-    background: var(--gold-dim);
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    padding: 10px 20px;
-    font-family: 'DM Mono', monospace;
-    font-size: 13px;
-    color: var(--gold);
-    letter-spacing: 0.1em;
-  }
-
-  /* LOADING */
-  .loading {
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    border: 2px solid rgba(201,168,76,0.3);
-    border-top-color: var(--gold);
-    border-radius: 50%;
-    animation: spin 0.6s linear infinite;
-  }
-
+  .loading { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(201,168,76,0.3); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.6s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* ALERT */
-  .alert {
-    border-radius: 3px;
-    padding: 12px 16px;
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    line-height: 1.6;
-  }
+  .alert { border-radius: 3px; padding: 12px 16px; font-family: 'DM Mono', monospace; font-size: 12px; margin-bottom: 16px; display: flex; align-items: flex-start; gap: 10px; line-height: 1.6; }
+  .alert-warn { background: rgba(224,85,85,0.08); border: 1px solid rgba(224,85,85,0.3); color: #ff9999; }
+  .alert-info { background: var(--gold-dim); border: 1px solid var(--border); color: var(--gold); }
 
-  .alert-warn {
-    background: rgba(224,85,85,0.08);
-    border: 1px solid rgba(224,85,85,0.3);
-    color: #ff9999;
-  }
-
-  .alert-info {
-    background: var(--gold-dim);
-    border: 1px solid var(--border);
-    color: var(--gold);
-  }
-
-  /* CONFIG NOTICE */
-  .config-notice {
-    background: rgba(201,168,76,0.06);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--gold);
-    border-radius: 0 4px 4px 0;
-    padding: 16px 20px;
-    margin-bottom: 32px;
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--grey);
-    line-height: 1.8;
-    letter-spacing: 0.04em;
-  }
-
+  .config-notice { background: rgba(201,168,76,0.06); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 0 4px 4px 0; padding: 16px 20px; margin-bottom: 32px; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--grey); line-height: 1.8; letter-spacing: 0.04em; }
   .config-notice strong { color: var(--gold); }
 
   @media (max-width: 640px) {
@@ -756,35 +245,20 @@
   <div class="page-sub">// CHAIRS · TABLES · CANOPIES · TRAILERS · TV SCREENS</div>
 
   <div class="config-notice">
-    <strong>⚙ SETUP REQUIRED:</strong> Before going live, replace <strong>SCRIPT_URL</strong> in the JavaScript config below with your Google Apps Script Web App URL.
-    See the included <strong>setup-guide.md</strong> for step-by-step instructions.
+    <strong>⚙ SETUP:</strong> This page checks the Google Apps Script backend for date-based availability. Your Inventory tab only needs <strong>assetId</strong> and <strong>maxAvailable</strong>.
   </div>
 
-  <!-- STEPS -->
   <div class="steps">
-    <div class="step active" id="step1">
-      <div class="step-num">1</div>
-      <div class="step-label">Select Dates</div>
-    </div>
-    <div class="step" id="step2">
-      <div class="step-num">2</div>
-      <div class="step-label">Choose Assets</div>
-    </div>
-    <div class="step" id="step3">
-      <div class="step-num">3</div>
-      <div class="step-label">Your Info</div>
-    </div>
-    <div class="step" id="step4">
-      <div class="step-num">4</div>
-      <div class="step-label">Review & Submit</div>
-    </div>
+    <div class="step active" id="step1"><div class="step-num">1</div><div class="step-label">Select Dates</div></div>
+    <div class="step" id="step2"><div class="step-num">2</div><div class="step-label">Choose Assets</div></div>
+    <div class="step" id="step3"><div class="step-num">3</div><div class="step-label">Your Info</div></div>
+    <div class="step" id="step4"><div class="step-num">4</div><div class="step-label">Review & Submit</div></div>
   </div>
 
-  <!-- SECTION 1: DATE PICKER -->
   <div class="section active" id="section1">
     <div class="section-header">
       <div class="section-title">Select Your Event Dates</div>
-      <div class="section-desc">// Click a start date, then an end date. Availability updates instantly.</div>
+      <div class="section-desc">// Click a pickup date, then a return date. Availability updates from Google Sheets.</div>
     </div>
 
     <div class="calendar-header">
@@ -809,38 +283,29 @@
 
     <div class="avail-panel">
       <div class="avail-title">// Real-Time Availability</div>
-      <div id="availContent">
-        <div class="avail-placeholder">Select dates above to check availability</div>
-      </div>
+      <div id="availContent"><div class="avail-placeholder">Select dates above to check availability</div></div>
     </div>
 
     <div class="btn-row">
-      <button class="btn btn-primary" id="btnToStep2" onclick="goToStep(2)" disabled>
-        Continue to Assets →
-      </button>
+      <button class="btn btn-primary" id="btnToStep2" onclick="goToStep(2)" disabled>Continue to Assets →</button>
     </div>
   </div>
 
-  <!-- SECTION 2: ASSET SELECTION -->
   <div class="section" id="section2">
     <div class="section-header">
       <div class="section-title">Select Assets & Quantities</div>
-      <div class="section-desc">// Only available quantities shown. Cannot exceed what's available on your selected dates.</div>
+      <div class="section-desc">// Cannot exceed what is available for your selected dates.</div>
     </div>
 
     <div class="asset-grid" id="assetGrid"></div>
-
     <div id="assetWarning"></div>
 
     <div class="btn-row">
       <button class="btn btn-ghost" onclick="goToStep(1)">← Back</button>
-      <button class="btn btn-primary" id="btnToStep3" onclick="goToStep(3)" disabled>
-        Continue to Your Info →
-      </button>
+      <button class="btn btn-primary" id="btnToStep3" onclick="goToStep(3)" disabled>Continue to Your Info →</button>
     </div>
   </div>
 
-  <!-- SECTION 3: REQUESTER INFO -->
   <div class="section" id="section3">
     <div class="section-header">
       <div class="section-title">Your Information</div>
@@ -848,39 +313,21 @@
     </div>
 
     <div class="form-grid">
-      <div class="field" style="grid-column: 1 / -1;">
-        <label>Event Name</label>
-        <input type="text" id="eventName" placeholder="e.g. Community Health Fair 2025">
-      </div>
-      <div class="field">
-        <label>Point of Contact Name</label>
-        <input type="text" id="pocName" placeholder="Full name">
-      </div>
-      <div class="field">
-        <label>Email Address</label>
-        <input type="email" id="pocEmail" placeholder="your@email.gov">
-      </div>
-      <div class="field">
-        <label>Phone Number</label>
-        <input type="tel" id="pocPhone" placeholder="(562) 000-0000">
-      </div>
-      <div class="field">
-        <label>Department / Organization</label>
-        <input type="text" id="pocDept" placeholder="e.g. Parks & Recreation">
-      </div>
+      <div class="field" style="grid-column: 1 / -1;"><label>Event Name</label><input type="text" id="eventName" placeholder="e.g. Community Health Fair 2026"></div>
+      <div class="field"><label>Point of Contact Name</label><input type="text" id="pocName" placeholder="Full name"></div>
+      <div class="field"><label>Email Address</label><input type="email" id="pocEmail" placeholder="your@email.gov"></div>
+      <div class="field"><label>Phone Number</label><input type="tel" id="pocPhone" placeholder="(562) 000-0000"></div>
+      <div class="field"><label>Department / Organization</label><input type="text" id="pocDept" placeholder="e.g. Parks & Recreation"></div>
     </div>
 
     <div id="infoWarning"></div>
 
     <div class="btn-row">
       <button class="btn btn-ghost" onclick="goToStep(2)">← Back</button>
-      <button class="btn btn-primary" onclick="goToStep(4)">
-        Review Request →
-      </button>
+      <button class="btn btn-primary" onclick="goToStep(4)">Review Request →</button>
     </div>
   </div>
 
-  <!-- SECTION 4: REVIEW -->
   <div class="section" id="section4">
     <div class="section-header">
       <div class="section-title">Review Your Request</div>
@@ -888,18 +335,14 @@
     </div>
 
     <div class="review-grid" id="reviewGrid"></div>
-
     <div id="submitWarning"></div>
 
     <div class="btn-row">
       <button class="btn btn-ghost" onclick="goToStep(3)">← Back</button>
-      <button class="btn btn-primary" id="btnSubmit" onclick="submitRequest()">
-        Submit Request
-      </button>
+      <button class="btn btn-primary" id="btnSubmit" onclick="submitRequest()">Submit Request</button>
     </div>
   </div>
 
-  <!-- SECTION 5: SUCCESS -->
   <div class="section" id="section5">
     <div class="success-box">
       <div class="success-icon">✓</div>
@@ -915,27 +358,27 @@
       </div>
     </div>
   </div>
-
 </main>
 
 <script>
 // ============================================================
-// CONFIG — Replace SCRIPT_URL with your Google Apps Script URL
+// CONFIG
+// Keep names/icons here for display.
+// Keep maxAvailable in the Google Sheet Inventory tab.
+// Inventory tab headers must be: assetId | maxAvailable
 // ============================================================
 const CONFIG = {
   SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbyKAyJgvnK_vpPhnGPYAOIQJnO5dv_lG1eeJQlniDUIb219hESnf8gGxhOfW4Iy9py6Sw/exec',
   TEAM_EMAIL: 'He-cderassets@longbeach.gov',
   ASSETS: [
-    { id: 'chairs',    name: 'Chairs',    icon: '🪑', max: 150 },
-    { id: 'tables',    name: 'Tables',    icon: '🪵', max: 50  },
-    { id: 'canopies',  name: 'Canopies',  icon: '⛺', max: 20  },
-    { id: 'trailers',  name: 'Trailers',  icon: '🚛', max: 5   },
-    { id: 'tvscreens', name: 'TV Screens',icon: '📺', max: 10  }
+    { id: 'chairs',    name: 'Chairs',     icon: '🪑', max: 0 },
+    { id: 'tables',    name: 'Tables',     icon: '🪵', max: 0 },
+    { id: 'canopies',  name: 'Canopies',   icon: '⛺', max: 0 },
+    { id: 'trailers',  name: 'Trailers',   icon: '🚛', max: 0 },
+    { id: 'tvscreens', name: 'TV Screens', icon: '📺', max: 0 }
   ]
 };
-// ============================================================
 
-// STATE
 let state = {
   currentMonth: new Date().getMonth(),
   currentYear: new Date().getFullYear(),
@@ -943,27 +386,24 @@ let state = {
   endDate: null,
   selectingEnd: false,
   availability: {},
-  quantities: {},
-  reservations: [] // loaded from Google Sheets
+  quantities: {}
 };
 
-const MONTHS = ['January','February','March','April','May','June',
-                'July','August','September','October','November','December'];
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
 // ---- CALENDAR ----
-
 function renderCalendar() {
   const label = document.getElementById('calMonthLabel');
   label.textContent = `${MONTHS[state.currentMonth]} ${state.currentYear}`;
 
   const grid = document.getElementById('calGrid');
-  // remove day cells but keep headers
   const headers = grid.querySelectorAll('.cal-day-label');
   grid.innerHTML = '';
   headers.forEach(h => grid.appendChild(h));
 
   const today = new Date();
   today.setHours(0,0,0,0);
+
   const firstDay = new Date(state.currentYear, state.currentMonth, 1).getDay();
   const daysInMonth = new Date(state.currentYear, state.currentMonth + 1, 0).getDate();
 
@@ -976,6 +416,7 @@ function renderCalendar() {
   for (let d = 1; d <= daysInMonth; d++) {
     const dateObj = new Date(state.currentYear, state.currentMonth, d);
     dateObj.setHours(0,0,0,0);
+
     const cell = document.createElement('div');
     cell.className = 'cal-day';
     cell.textContent = d;
@@ -985,14 +426,18 @@ function renderCalendar() {
       cell.classList.add('past');
     } else {
       if (dateObj.getTime() === today.getTime()) cell.classList.add('today');
-      if (state.startDate && dateObj.toISOString().split('T')[0] === state.startDate) cell.classList.add('selected-start');
-      if (state.endDate && dateObj.toISOString().split('T')[0] === state.endDate) cell.classList.add('selected-end');
+      if (state.startDate && cell.dataset.date === state.startDate) cell.classList.add('selected-start');
+      if (state.endDate && cell.dataset.date === state.endDate) cell.classList.add('selected-end');
+
       if (state.startDate && state.endDate) {
-        const s = new Date(state.startDate), e = new Date(state.endDate);
+        const s = new Date(state.startDate);
+        const e = new Date(state.endDate);
         if (dateObj > s && dateObj < e) cell.classList.add('in-range');
       }
+
       cell.addEventListener('click', () => onDayClick(cell.dataset.date));
     }
+
     grid.appendChild(cell);
   }
 }
@@ -1002,6 +447,8 @@ function onDayClick(dateStr) {
     state.startDate = dateStr;
     state.endDate = null;
     state.selectingEnd = true;
+    document.getElementById('btnToStep2').disabled = true;
+    document.getElementById('availContent').innerHTML = '<div class="avail-placeholder">Select a return date to check availability</div>';
   } else if (state.selectingEnd) {
     if (dateStr < state.startDate) {
       state.endDate = state.startDate;
@@ -1009,9 +456,11 @@ function onDayClick(dateStr) {
     } else {
       state.endDate = dateStr;
     }
+
     state.selectingEnd = false;
     checkAvailability();
   }
+
   renderCalendar();
   updateDateDisplay();
 }
@@ -1026,13 +475,15 @@ function changeMonth(dir) {
 function updateDateDisplay() {
   const el = document.getElementById('dateDisplay');
   el.innerHTML = '';
+
   if (state.startDate) {
     el.innerHTML += `<div class="date-chip"><span class="date-chip-label">Pickup</span>${formatDate(state.startDate)}</div>`;
   }
+
   if (state.endDate) {
     el.innerHTML += `<div class="date-chip"><span class="date-chip-label">Return</span>${formatDate(state.endDate)}</div>`;
-    const nights = Math.round((new Date(state.endDate) - new Date(state.startDate)) / 86400000);
-    el.innerHTML += `<div class="date-chip"><span class="date-chip-label">Duration</span>${nights} day${nights !== 1 ? 's' : ''}</div>`;
+    const days = Math.round((new Date(state.endDate) - new Date(state.startDate)) / 86400000);
+    el.innerHTML += `<div class="date-chip"><span class="date-chip-label">Duration</span>${days} day${days !== 1 ? 's' : ''}</div>`;
   }
 }
 
@@ -1042,61 +493,60 @@ function formatDate(str) {
 }
 
 // ---- AVAILABILITY ----
-
 async function checkAvailability() {
   if (!state.startDate || !state.endDate) return;
+
   const content = document.getElementById('availContent');
   content.innerHTML = '<div class="avail-placeholder"><span class="loading"></span> Checking availability…</div>';
 
   try {
-    // Fetch reservations from Google Sheets via Apps Script
-    const url = `${CONFIG.SCRIPT_URL}?action=getReservations`;
+    const url =
+      `${CONFIG.SCRIPT_URL}?action=getAvailability` +
+      `&pickupDate=${encodeURIComponent(state.startDate)}` +
+      `&returnDate=${encodeURIComponent(state.endDate)}`;
+
     const res = await fetch(url);
     const data = await res.json();
-    state.reservations = data.reservations || [];
-  } catch(e) {
-    // Demo mode if script not connected yet
-    state.reservations = [];
-  }
 
-  // Calculate availability
-  const committed = {};
-  CONFIG.ASSETS.forEach(a => committed[a.id] = 0);
-
-  const reqStart = new Date(state.startDate);
-  const reqEnd   = new Date(state.endDate);
-
-  state.reservations.forEach(r => {
-    if (r.status === 'Denied') return;
-    const rStart = new Date(r.pickupDate);
-    const rEnd   = new Date(r.returnDate);
-    // Overlap check
-    if (rStart <= reqEnd && rEnd >= reqStart) {
-      CONFIG.ASSETS.forEach(a => {
-        if (r[a.id]) committed[a.id] += parseInt(r[a.id]) || 0;
-      });
+    if (data.status !== 'ok') {
+      throw new Error(data.message || 'Availability check failed');
     }
-  });
 
-  state.availability = {};
-  CONFIG.ASSETS.forEach(a => {
-    state.availability[a.id] = Math.max(0, a.max - committed[a.id]);
-  });
+    state.availability = {};
 
-  renderAvailability();
-  document.getElementById('btnToStep2').disabled = false;
+    CONFIG.ASSETS.forEach(asset => {
+      const result = data.availability[asset.id];
+      asset.max = result ? result.maxAvailable : 0;
+      state.availability[asset.id] = result ? result.available : 0;
+    });
+
+    renderAvailability();
+    document.getElementById('btnToStep2').disabled = false;
+
+  } catch (err) {
+    console.error('Availability error:', err);
+    content.innerHTML = `
+      <div class="alert alert-warn">
+        ⚠ Could not check availability. Confirm your Apps Script is deployed and your Inventory tab has assetId and maxAvailable.
+      </div>
+    `;
+    document.getElementById('btnToStep2').disabled = true;
+  }
 }
 
 function renderAvailability() {
   const content = document.getElementById('availContent');
   content.innerHTML = '<div class="avail-grid" id="availGrid"></div>';
+
   const grid = document.getElementById('availGrid');
 
   CONFIG.ASSETS.forEach(a => {
-    const avail = state.availability[a.id];
-    const pct = avail / a.max;
+    const avail = Number(state.availability[a.id]) || 0;
+    const max = Number(a.max) || 0;
+    const pct = max > 0 ? avail / max : 0;
     const cls = avail === 0 ? 'unavailable' : pct < 0.3 ? 'partial' : 'available';
-    const statusLabel = avail === 0 ? 'NONE AVAILABLE' : `of ${a.max} available`;
+    const statusLabel = avail === 0 ? 'NONE AVAILABLE' : `of ${max} available`;
+
     grid.innerHTML += `
       <div class="avail-item ${cls}">
         <div class="avail-item-name">${a.icon} ${a.name}</div>
@@ -1107,54 +557,59 @@ function renderAvailability() {
 }
 
 // ---- ASSET SELECTION ----
-
 function renderAssetGrid() {
   const grid = document.getElementById('assetGrid');
   grid.innerHTML = '';
   state.quantities = {};
 
   CONFIG.ASSETS.forEach(a => {
-    const avail = state.availability[a.id] ?? a.max;
+    const avail = Number(state.availability[a.id]) || 0;
     state.quantities[a.id] = 0;
+
     grid.innerHTML += `
       <div class="asset-card" id="card-${a.id}">
         <div class="asset-card-top">
           <div style="font-size:28px">${a.icon}</div>
-          <div class="asset-avail-badge ${avail > 0 ? 'ok' : 'none'}">
-            ${avail > 0 ? avail + ' AVAIL' : 'NONE'}
-          </div>
+          <div class="asset-avail-badge ${avail > 0 ? 'ok' : 'none'}">${avail > 0 ? avail + ' AVAIL' : 'NONE'}</div>
         </div>
         <div class="asset-name">${a.name}</div>
         <div class="qty-control">
           <button class="qty-btn" onclick="changeQty('${a.id}', -1)" id="minus-${a.id}" disabled>−</button>
-          <input class="qty-input" type="number" id="qty-${a.id}" value="0" min="0" max="${avail}"
-            onchange="onQtyChange('${a.id}')" ${avail === 0 ? 'disabled' : ''}>
+          <input class="qty-input" type="number" id="qty-${a.id}" value="0" min="0" max="${avail}" onchange="onQtyChange('${a.id}')" ${avail === 0 ? 'disabled' : ''}>
           <button class="qty-btn" onclick="changeQty('${a.id}', 1)" id="plus-${a.id}" ${avail === 0 ? 'disabled' : ''}>+</button>
         </div>
       </div>`;
   });
+
+  checkAssetSelection();
 }
 
 function changeQty(id, delta) {
   const input = document.getElementById(`qty-${id}`);
-  const avail = state.availability[id] ?? CONFIG.ASSETS.find(a=>a.id===id).max;
-  let val = parseInt(input.value) + delta;
+  const avail = Number(state.availability[id]) || 0;
+  let val = (parseInt(input.value) || 0) + delta;
   val = Math.max(0, Math.min(val, avail));
+
   input.value = val;
   state.quantities[id] = val;
+
   document.getElementById(`minus-${id}`).disabled = val <= 0;
   document.getElementById(`plus-${id}`).disabled = val >= avail;
+
   checkAssetSelection();
 }
 
 function onQtyChange(id) {
   const input = document.getElementById(`qty-${id}`);
-  const avail = state.availability[id] ?? CONFIG.ASSETS.find(a=>a.id===id).max;
-  let val = Math.max(0, Math.min(parseInt(input.value)||0, avail));
+  const avail = Number(state.availability[id]) || 0;
+  let val = Math.max(0, Math.min(parseInt(input.value) || 0, avail));
+
   input.value = val;
   state.quantities[id] = val;
+
   document.getElementById(`minus-${id}`).disabled = val <= 0;
   document.getElementById(`plus-${id}`).disabled = val >= avail;
+
   checkAssetSelection();
 }
 
@@ -1164,27 +619,29 @@ function checkAssetSelection() {
 }
 
 // ---- NAVIGATION ----
-
 function goToStep(n) {
+  if (n === 2) renderAssetGrid();
+
   if (n === 3) {
-    const warn = document.getElementById('infoWarning');
-    warn.innerHTML = '';
+    document.getElementById('infoWarning').innerHTML = '';
   }
+
   if (n === 4) {
     if (!validateInfo()) return;
     renderReview();
   }
-  if (n === 2) renderAssetGrid();
 
   for (let i = 1; i <= 5; i++) {
     document.getElementById(`section${i}`).classList.toggle('active', i === n);
   }
+
   for (let i = 1; i <= 4; i++) {
     const step = document.getElementById(`step${i}`);
     step.classList.remove('active','done');
     if (i === n) step.classList.add('active');
-    if (i < n)  step.classList.add('done');
+    if (i < n) step.classList.add('done');
   }
+
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -1192,53 +649,35 @@ function validateInfo() {
   const fields = ['eventName','pocName','pocEmail','pocPhone','pocDept'];
   const labels = ['Event Name','POC Name','Email','Phone','Department'];
   const warn = document.getElementById('infoWarning');
+
   for (let i = 0; i < fields.length; i++) {
     if (!document.getElementById(fields[i]).value.trim()) {
       warn.innerHTML = `<div class="alert alert-warn">⚠ Please fill in: ${labels[i]}</div>`;
       return false;
     }
   }
+
   const email = document.getElementById('pocEmail').value.trim();
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     warn.innerHTML = `<div class="alert alert-warn">⚠ Please enter a valid email address.</div>`;
     return false;
   }
+
   return true;
 }
 
 function renderReview() {
   const grid = document.getElementById('reviewGrid');
-  const selectedAssets = CONFIG.ASSETS.filter(a => (state.quantities[a.id]||0) > 0);
+  const selectedAssets = CONFIG.ASSETS.filter(a => (state.quantities[a.id] || 0) > 0);
 
   grid.innerHTML = `
-    <div class="review-item">
-      <div class="review-label">Event Name</div>
-      <div class="review-value">${document.getElementById('eventName').value}</div>
-    </div>
-    <div class="review-item">
-      <div class="review-label">Department / Org</div>
-      <div class="review-value">${document.getElementById('pocDept').value}</div>
-    </div>
-    <div class="review-item">
-      <div class="review-label">Point of Contact</div>
-      <div class="review-value">${document.getElementById('pocName').value}</div>
-    </div>
-    <div class="review-item">
-      <div class="review-label">Email</div>
-      <div class="review-value">${document.getElementById('pocEmail').value}</div>
-    </div>
-    <div class="review-item">
-      <div class="review-label">Phone</div>
-      <div class="review-value">${document.getElementById('pocPhone').value}</div>
-    </div>
-    <div class="review-item">
-      <div class="review-label">Pickup Date</div>
-      <div class="review-value">${formatDate(state.startDate)}</div>
-    </div>
-    <div class="review-item">
-      <div class="review-label">Return Date</div>
-      <div class="review-value">${formatDate(state.endDate)}</div>
-    </div>
+    <div class="review-item"><div class="review-label">Event Name</div><div class="review-value">${document.getElementById('eventName').value}</div></div>
+    <div class="review-item"><div class="review-label">Department / Org</div><div class="review-value">${document.getElementById('pocDept').value}</div></div>
+    <div class="review-item"><div class="review-label">Point of Contact</div><div class="review-value">${document.getElementById('pocName').value}</div></div>
+    <div class="review-item"><div class="review-label">Email</div><div class="review-value">${document.getElementById('pocEmail').value}</div></div>
+    <div class="review-item"><div class="review-label">Phone</div><div class="review-value">${document.getElementById('pocPhone').value}</div></div>
+    <div class="review-item"><div class="review-label">Pickup Date</div><div class="review-value">${formatDate(state.startDate)}</div></div>
+    <div class="review-item"><div class="review-label">Return Date</div><div class="review-value">${formatDate(state.endDate)}</div></div>
     <div class="review-assets">
       <div class="review-label">Assets Requested</div>
       <div class="review-asset-list">
@@ -1248,14 +687,16 @@ function renderReview() {
 }
 
 // ---- SUBMIT ----
-
 async function submitRequest() {
   const btn = document.getElementById('btnSubmit');
+  const warn = document.getElementById('submitWarning');
+  warn.innerHTML = '';
+
   btn.disabled = true;
   btn.innerHTML = '<span class="loading"></span> Submitting…';
 
   const refNum = 'HE-' + Date.now().toString(36).toUpperCase();
-  const selectedAssets = CONFIG.ASSETS.filter(a => (state.quantities[a.id]||0) > 0);
+  const selectedAssets = CONFIG.ASSETS.filter(a => (state.quantities[a.id] || 0) > 0);
 
   const payload = {
     action: 'submitReservation',
@@ -1271,9 +712,7 @@ async function submitRequest() {
     submittedAt: new Date().toISOString()
   };
 
-  // Generate ICS 213 PDF
-  const pdfBase64 = generateICS213(payload, selectedAssets);
-  payload.pdfBase64 = pdfBase64;
+  payload.pdfBase64 = generateICS213(payload, selectedAssets);
 
   try {
     await fetch(CONFIG.SCRIPT_URL, {
@@ -1282,24 +721,25 @@ async function submitRequest() {
       body: JSON.stringify(payload),
       mode: 'no-cors'
     });
-  } catch(e) {
-    // no-cors won't throw on success; Apps Script handles it
+
+    document.getElementById('refNumber').textContent = `Reference: ${refNum}`;
+    goToStep(5);
+
+  } catch (err) {
+    console.error('Submit error:', err);
+    warn.innerHTML = '<div class="alert alert-warn">⚠ Could not submit request. Please contact the HE-CDER warehouse team.</div>';
   }
 
-  document.getElementById('refNumber').textContent = `Reference: ${refNum}`;
-  goToStep(5);
   btn.disabled = false;
   btn.innerHTML = 'Submit Request';
 }
 
 // ---- ICS 213 PDF GENERATOR ----
-
 function generateICS213(data, selectedAssets) {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ unit: 'pt', format: 'letter' });
   const W = 612, margin = 40;
 
-  // Header bar
   doc.setFillColor(10, 22, 40);
   doc.rect(0, 0, W, 60, 'F');
   doc.setTextColor(201, 168, 76);
@@ -1312,7 +752,6 @@ function generateICS213(data, selectedAssets) {
   doc.text('City Asset Reservation System  |  HE-CDER Warehouse  |  Long Beach', margin, 42);
   doc.text(`Generated: ${new Date().toLocaleString()}`, W - margin, 42, { align: 'right' });
 
-  // Form box
   doc.setDrawColor(201, 168, 76);
   doc.setLineWidth(0.5);
   doc.rect(margin, 70, W - margin*2, 28);
@@ -1323,8 +762,8 @@ function generateICS213(data, selectedAssets) {
   doc.setFontSize(10);
   doc.text('ICS FORM 213 — GENERAL MESSAGE', W/2, 88, { align: 'center' });
 
-  // Row helper
   let y = 108;
+
   function row(label, value, h = 22) {
     doc.setDrawColor(180, 190, 210);
     doc.setLineWidth(0.3);
@@ -1348,7 +787,7 @@ function generateICS213(data, selectedAssets) {
     doc.setLineWidth(0.3);
     doc.rect(margin, y, W - margin*2, h);
     doc.line(margin + half, y, margin + half, y + h);
-    // Left
+
     doc.setFillColor(248, 250, 255);
     doc.rect(margin, y, 100, h, 'F');
     doc.setFont('helvetica', 'bold');
@@ -1359,7 +798,7 @@ function generateICS213(data, selectedAssets) {
     doc.setFontSize(10);
     doc.setTextColor(10, 22, 40);
     doc.text(String(v1 || '—'), margin + 108, y + h/2 + 3);
-    // Right
+
     doc.setFillColor(248, 250, 255);
     doc.rect(margin + half, y, 100, h, 'F');
     doc.setFont('helvetica', 'bold');
@@ -1373,16 +812,12 @@ function generateICS213(data, selectedAssets) {
     y += h;
   }
 
-  // TO / FROM
   rowHalf('To:', 'HE-CDER Warehouse Team', 'From:', data.pocName);
   rowHalf('Position:', 'Asset Manager', 'Position:', data.pocDept);
   rowHalf('Date:', formatDate(data.submittedAt?.split('T')[0] || data.pickupDate), 'Time:', new Date(data.submittedAt).toLocaleTimeString());
-
-  // SUBJECT
   row('Subject:', `Asset Reservation Request — ${data.eventName}`);
   row('Ref Number:', data.refNumber);
 
-  // MESSAGE header
   y += 6;
   doc.setFillColor(10, 22, 40);
   doc.rect(margin, y, W - margin*2, 18, 'F');
@@ -1392,7 +827,6 @@ function generateICS213(data, selectedAssets) {
   doc.text('MESSAGE', margin + 6, y + 12);
   y += 18;
 
-  // Message body box
   const msgH = 150;
   doc.setDrawColor(180, 190, 210);
   doc.rect(margin, y, W - margin*2, msgH);
@@ -1400,7 +834,8 @@ function generateICS213(data, selectedAssets) {
   doc.setFontSize(10);
   doc.setTextColor(10, 22, 40);
 
-  let mx = margin + 10, my = y + 16;
+  let mx = margin + 10;
+  let my = y + 16;
   const lineH = 15;
 
   function msgLine(text, bold = false) {
@@ -1409,27 +844,24 @@ function generateICS213(data, selectedAssets) {
     my += lineH;
   }
 
-  msgLine(`A reservation request has been submitted for the following city assets:`, false);
+  msgLine('A reservation request has been submitted for the following city assets:');
   my += 4;
 
   selectedAssets.forEach(a => {
-    msgLine(`  ${a.icon}  ${a.name.toUpperCase()}: ${data.quantities[a.id]} units`, false);
+    msgLine(`  ${a.name.toUpperCase()}: ${data.quantities[a.id]} units`);
   });
 
   my += 4;
-  msgLine(`EVENT:         ${data.eventName}`, false);
-  msgLine(`PICKUP DATE:   ${formatDate(data.pickupDate)}`, false);
-  msgLine(`RETURN DATE:   ${formatDate(data.returnDate)}`, false);
-  msgLine(`DEPT / ORG:    ${data.pocDept}`, false);
-  msgLine(`CONTACT:       ${data.pocName}  |  ${data.pocEmail}  |  ${data.pocPhone}`, false);
+  msgLine(`EVENT:         ${data.eventName}`);
+  msgLine(`PICKUP DATE:   ${formatDate(data.pickupDate)}`);
+  msgLine(`RETURN DATE:   ${formatDate(data.returnDate)}`);
+  msgLine(`DEPT / ORG:    ${data.pocDept}`);
+  msgLine(`CONTACT:       ${data.pocName}  |  ${data.pocEmail}  |  ${data.pocPhone}`);
 
   y += msgH;
-
-  // SIGNATURE
   y += 6;
   rowHalf('Signature:', '(Submitted via Online Portal)', 'Position:', data.pocDept);
 
-  // REPLY SECTION
   y += 10;
   doc.setFillColor(10, 22, 40);
   doc.rect(margin, y, W - margin*2, 18, 'F');
@@ -1451,7 +883,6 @@ function generateICS213(data, selectedAssets) {
   rowHalf('Approved By:', '', 'Date / Time:', '');
   rowHalf('Signature:', '', 'Status:', '☐ Approved   ☐ Denied');
 
-  // Footer
   y += 16;
   doc.setDrawColor(201, 168, 76);
   doc.setLineWidth(0.5);
@@ -1467,13 +898,13 @@ function generateICS213(data, selectedAssets) {
 }
 
 // ---- RESET ----
-
 function resetForm() {
   state.startDate = null;
   state.endDate = null;
   state.selectingEnd = false;
   state.availability = {};
   state.quantities = {};
+
   document.getElementById('eventName').value = '';
   document.getElementById('pocName').value = '';
   document.getElementById('pocEmail').value = '';
@@ -1482,7 +913,9 @@ function resetForm() {
   document.getElementById('availContent').innerHTML = '<div class="avail-placeholder">Select dates above to check availability</div>';
   document.getElementById('dateDisplay').innerHTML = '';
   document.getElementById('btnToStep2').disabled = true;
+
   goToStep(1);
+  renderCalendar();
 }
 
 // ---- INIT ----
