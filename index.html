@@ -244,7 +244,7 @@
 
 <main>
   <div class="page-title">Reserve <span>City Assets</span></div>
-  <div class="page-sub">// CHAIRS · TABLES · CANOPIES · TRAILERS · TV SCREENS</div>
+  <div class="page-sub">// CHAIRS · TABLES · CANOPIES · SAFE TRAILER · TV SCREEN TRAILER · PHOTO BOOTH</div>
 
   <div class="config-notice">
     <strong>⚙ SETUP:</strong> This page checks the Google Apps Script backend for date-based availability. Your Inventory tab only needs <strong>assetId</strong> and <strong>maxAvailable</strong>.
@@ -372,13 +372,14 @@
 const CONFIG = {
   SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbyKAyJgvnK_vpPhnGPYAOIQJnO5dv_lG1eeJQlniDUIb219hESnf8gGxhOfW4Iy9py6Sw/exec',
   TEAM_EMAIL: 'He-cderassets@longbeach.gov',
-  ASSETS: [
-    { id: 'chairs',    name: 'Chairs',     icon: '🪑', max: 0 },
-    { id: 'tables',    name: 'Tables',     icon: '🪵', max: 0 },
-    { id: 'canopies',  name: 'Canopies',   icon: '⛺', max: 0 },
-    { id: 'trailers',  name: 'Trailers',   icon: '🚛', max: 0 },
-    { id: 'tvscreens', name: 'TV Screens', icon: '📺', max: 0 }
-  ]
+ASSETS: [
+  { id: 'chairs',          name: 'Chairs',            icon: '🪑', max: 0 },
+  { id: 'tables',          name: 'Tables',            icon: '🪵', max: 0 },
+  { id: 'canopies',        name: 'Canopies',          icon: '⛺', max: 0 },
+  { id: 'safetrailer',     name: 'SAFE Trailer',      icon: '🚚', max: 0 },
+  { id: 'tvscreentrailer', name: 'TV Screen Trailer', icon: '📺', max: 0 },
+  { id: 'photobooth',      name: 'Photo Booth',       icon: '📸', max: 0 }
+]
 };
 
 let state = {
