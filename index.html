@@ -91,13 +91,13 @@
   main { max-width: 1100px; margin: 0 auto; padding: 48px 32px 80px; }
 
   .page-title {
-  font-family: 'Inter', sans-serif;
-  font-size: 38px;
-  font-weight: 750;
-  letter-spacing: -0.01em;
-  color: var(--white);
-  margin-bottom: 8px;
-  line-height: 1.15;
+    font-family: 'Inter', sans-serif;
+    font-size: 38px;
+    font-weight: 750;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    margin-bottom: 8px;
+    line-height: 1.15;
   }
 
   .page-title span { color: var(--gold); }
@@ -162,7 +162,7 @@
   .form-grid.full { grid-template-columns: 1fr; }
   .field { display: flex; flex-direction: column; gap: 6px; }
   .field label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; }
-  .field input, .field select { background: var(--navy-mid); border: 1px solid var(--border); border-radius: 3px; color: var(--white); font-family: 'Syne', sans-serif; font-size: 14px; padding: 10px 14px; outline: none; transition: border-color 0.2s; width: 100%; }
+  .field input, .field select { background: var(--navy-mid); border: 1px solid var(--border); border-radius: 3px; color: var(--white); font-family: 'Inter', sans-serif; font-size: 14px; padding: 10px 14px; outline: none; transition: border-color 0.2s; width: 100%; }
   .field input:focus, .field select:focus { border-color: var(--gold); }
   .field input::placeholder { color: var(--grey); }
   .field select option { background: var(--navy-mid); }
@@ -170,7 +170,6 @@
   .asset-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin: 20px 0; }
   .asset-card { background: var(--navy-mid); border: 1px solid var(--border); border-radius: 4px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
   .asset-card-top { display: flex; align-items: center; justify-content: space-between; }
-  .asset-icon { font-size: 22px; }
   .asset-name { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--grey); }
   .asset-avail-badge { font-family: 'DM Mono', monospace; font-size: 10px; padding: 3px 8px; border-radius: 2px; border: 1px solid; }
   .asset-avail-badge.ok { color: var(--green); border-color: rgba(76,175,130,0.3); background: rgba(76,175,130,0.08); }
@@ -182,7 +181,7 @@
   .qty-btn:disabled { opacity: 0.3; cursor: not-allowed; }
   .qty-input { background: var(--navy); border: 1px solid var(--border); border-radius: 2px; color: var(--white); font-family: 'DM Mono', monospace; font-size: 16px; font-weight: 500; text-align: center; width: 52px; padding: 4px; outline: none; }
 
-  .btn { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 13px 28px; border-radius: 3px; border: none; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 13px 28px; border-radius: 3px; border: none; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
   .btn-primary { background: var(--gold); color: var(--navy); }
   .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
   .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
@@ -193,7 +192,6 @@
   .section-header { margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
   .section-title { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
   .section-desc { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--grey); letter-spacing: 0.06em; }
-  .divider { height: 1px; background: var(--border); margin: 24px 0; }
 
   .review-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
   .review-item { background: var(--navy-mid); border: 1px solid var(--border); border-radius: 3px; padding: 14px 16px; }
@@ -247,10 +245,10 @@
   <div class="page-sub">// CHAIRS · TABLES · CANOPIES · SAFE TRAILER · TV SCREEN TRAILER · PHOTO BOOTH</div>
 
   <div class="config-notice">
-    <strong>Disclaimer:</strong> All asset requests are subject to availability and approval by the Worsham Warehouse/Logistics team. 
+    <strong>Disclaimer:</strong> All asset requests are subject to availability and approval by the Worsham Warehouse/Logistics team.
 
-    Requesting departments are responsible for picking up and returning all approved assets. If pickup, delivery, setup, or retrieval assistance is needed from warehouse/logistics staff, the requesting department will be required to provide an index code to cover staff time and related costs. 
-        <br><br>Requesting departments are fully responsible for any lost, damaged, or unreturned assets, including the full replacement cost if applicable. For questions regarding this form or the asset request process, please contact the <strong>Warehouse/Logistics Line at 562-708-7619.</strong>
+    Requesting departments are responsible for picking up and returning all approved assets. If pickup, delivery, setup, or retrieval assistance is needed from warehouse/logistics staff, the requesting department will be required to provide an index code to cover staff time and related costs.
+    <br><br>Requesting departments are fully responsible for any lost, damaged, or unreturned assets, including the full replacement cost if applicable. For questions regarding this form or the asset request process, please contact the <strong>Warehouse/Logistics Line at 562-708-7619.</strong>
   </div>
 
   <div class="steps">
@@ -265,15 +263,13 @@
       <div class="section-title">Select Your Event Dates</div>
       <div class="section-desc">// Click a pickup date, then a return date.</div>
     </div>
-
     <div class="calendar-header">
       <div class="cal-nav">
-        <button class="cal-btn" onclick="changeMonth(-1)">‹</button>
+        <button class="cal-btn" onclick="changeMonth(-1)">&#8249;</button>
         <div class="cal-month" id="calMonthLabel"></div>
-        <button class="cal-btn" onclick="changeMonth(1)">›</button>
+        <button class="cal-btn" onclick="changeMonth(1)">&#8250;</button>
       </div>
     </div>
-
     <div class="calendar-grid" id="calGrid">
       <div class="cal-day-label">SUN</div>
       <div class="cal-day-label">MON</div>
@@ -283,31 +279,26 @@
       <div class="cal-day-label">FRI</div>
       <div class="cal-day-label">SAT</div>
     </div>
-
     <div class="date-display" id="dateDisplay"></div>
-
     <div class="avail-panel">
       <div class="avail-title">// Real-Time Availability</div>
       <div id="availContent"><div class="avail-placeholder">Select dates above to check availability</div></div>
     </div>
-
     <div class="btn-row">
-      <button class="btn btn-primary" id="btnToStep2" onclick="goToStep(2)" disabled>Continue to Assets →</button>
+      <button class="btn btn-primary" id="btnToStep2" onclick="goToStep(2)" disabled>Continue to Assets &rarr;</button>
     </div>
   </div>
 
   <div class="section" id="section2">
     <div class="section-header">
-      <div class="section-title">Select Assets & Quantities</div>
+      <div class="section-title">Select Assets &amp; Quantities</div>
       <div class="section-desc">// Cannot exceed what is available for your selected dates.</div>
     </div>
-
     <div class="asset-grid" id="assetGrid"></div>
     <div id="assetWarning"></div>
-
     <div class="btn-row">
-      <button class="btn btn-ghost" onclick="goToStep(1)">← Back</button>
-      <button class="btn btn-primary" id="btnToStep3" onclick="goToStep(3)" disabled>Continue to Your Info →</button>
+      <button class="btn btn-ghost" onclick="goToStep(1)">&larr; Back</button>
+      <button class="btn btn-primary" id="btnToStep3" onclick="goToStep(3)" disabled>Continue to Your Info &rarr;</button>
     </div>
   </div>
 
@@ -316,20 +307,17 @@
       <div class="section-title">Your Information</div>
       <div class="section-desc">// All fields required. A confirmation will be sent to your email.</div>
     </div>
-
     <div class="form-grid">
       <div class="field" style="grid-column: 1 / -1;"><label>Event Name</label><input type="text" id="eventName" placeholder="e.g. Community Health Fair 2026"></div>
       <div class="field"><label>Point of Contact Name</label><input type="text" id="pocName" placeholder="Full name"></div>
       <div class="field"><label>Email Address</label><input type="email" id="pocEmail" placeholder="your@email.gov"></div>
       <div class="field"><label>Phone Number</label><input type="tel" id="pocPhone" placeholder="(562) 000-0000"></div>
-      <div class="field"><label>Department / Organization</label><input type="text" id="pocDept" placeholder="e.g. Parks & Recreation"></div>
+      <div class="field"><label>Department / Organization</label><input type="text" id="pocDept" placeholder="e.g. Parks and Recreation"></div>
     </div>
-
     <div id="infoWarning"></div>
-
     <div class="btn-row">
-      <button class="btn btn-ghost" onclick="goToStep(2)">← Back</button>
-      <button class="btn btn-primary" onclick="goToStep(4)">Review Request →</button>
+      <button class="btn btn-ghost" onclick="goToStep(2)">&larr; Back</button>
+      <button class="btn btn-primary" onclick="goToStep(4)">Review Request &rarr;</button>
     </div>
   </div>
 
@@ -338,19 +326,17 @@
       <div class="section-title">Review Your Request</div>
       <div class="section-desc">// Confirm all details before submitting. Your team will review and approve.</div>
     </div>
-
     <div class="review-grid" id="reviewGrid"></div>
     <div id="submitWarning"></div>
-
     <div class="btn-row">
-      <button class="btn btn-ghost" onclick="goToStep(3)">← Back</button>
+      <button class="btn btn-ghost" onclick="goToStep(3)">&larr; Back</button>
       <button class="btn btn-primary" id="btnSubmit" onclick="submitRequest()">Submit Request</button>
     </div>
   </div>
 
   <div class="section" id="section5">
     <div class="success-box">
-      <div class="success-icon">✓</div>
+      <div class="success-icon">&#10003;</div>
       <div class="success-title">Request Submitted</div>
       <div class="success-sub">
         Your reservation request has been sent to the HE-CDER warehouse team.<br>
@@ -366,23 +352,17 @@
 </main>
 
 <script>
-// ============================================================
-// CONFIG
-// Keep names/icons here for display.
-// Keep maxAvailable in the Google Sheet Inventory tab.
-// Inventory tab headers must be: assetId | maxAvailable
-// ============================================================
 const CONFIG = {
   SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbyKAyJgvnK_vpPhnGPYAOIQJnO5dv_lG1eeJQlniDUIb219hESnf8gGxhOfW4Iy9py6Sw/exec',
   TEAM_EMAIL: 'He-cderassets@longbeach.gov',
-ASSETS: [
-  { id: 'chairs',          name: 'Chairs',            icon: '🪑', max: 0 },
-  { id: 'tables',          name: 'Tables',            icon: '🪵', max: 0 },
-  { id: 'canopies',        name: 'Canopies',          icon: '⛺', max: 0 },
-  { id: 'safetrailer',     name: 'SAFE Trailer',      icon: '🚚', max: 0 },
-  { id: 'tvscreentrailer', name: 'TV Screen Trailer', icon: '📺', max: 0 },
-  { id: 'photobooth',      name: 'Photo Booth',       icon: '📸', max: 0 }
-]
+  ASSETS: [
+    { id: 'chairs',          name: 'Chairs',            max: 0 },
+    { id: 'tables',          name: 'Tables',            max: 0 },
+    { id: 'canopies',        name: 'Canopies',          max: 0 },
+    { id: 'safetrailer',     name: 'SAFE Trailer',      max: 0 },
+    { id: 'tvscreentrailer', name: 'TV Screen Trailer', max: 0 },
+    { id: 'photobooth',      name: 'Photo Booth',       max: 0 }
+  ]
 };
 
 let state = {
@@ -397,33 +377,30 @@ let state = {
 
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
-// ---- CALENDAR ----
 function renderCalendar() {
   const label = document.getElementById('calMonthLabel');
-  label.textContent = `${MONTHS[state.currentMonth]} ${state.currentYear}`;
+  label.textContent = MONTHS[state.currentMonth] + ' ' + state.currentYear;
 
   const grid = document.getElementById('calGrid');
   const headers = grid.querySelectorAll('.cal-day-label');
   grid.innerHTML = '';
-  headers.forEach(h => grid.appendChild(h));
+  headers.forEach(function(h) { grid.appendChild(h); });
 
   const today = new Date();
   today.setHours(0,0,0,0);
-
   const firstDay = new Date(state.currentYear, state.currentMonth, 1).getDay();
   const daysInMonth = new Date(state.currentYear, state.currentMonth + 1, 0).getDate();
 
-  for (let i = 0; i < firstDay; i++) {
-    const empty = document.createElement('div');
+  for (var i = 0; i < firstDay; i++) {
+    var empty = document.createElement('div');
     empty.className = 'cal-day empty';
     grid.appendChild(empty);
   }
 
-  for (let d = 1; d <= daysInMonth; d++) {
-    const dateObj = new Date(state.currentYear, state.currentMonth, d);
+  for (var d = 1; d <= daysInMonth; d++) {
+    var dateObj = new Date(state.currentYear, state.currentMonth, d);
     dateObj.setHours(0,0,0,0);
-
-    const cell = document.createElement('div');
+    var cell = document.createElement('div');
     cell.className = 'cal-day';
     cell.textContent = d;
     cell.dataset.date = dateObj.toISOString().split('T')[0];
@@ -434,16 +411,15 @@ function renderCalendar() {
       if (dateObj.getTime() === today.getTime()) cell.classList.add('today');
       if (state.startDate && cell.dataset.date === state.startDate) cell.classList.add('selected-start');
       if (state.endDate && cell.dataset.date === state.endDate) cell.classList.add('selected-end');
-
       if (state.startDate && state.endDate) {
-        const s = new Date(state.startDate);
-        const e = new Date(state.endDate);
+        var s = new Date(state.startDate);
+        var e = new Date(state.endDate);
         if (dateObj > s && dateObj < e) cell.classList.add('in-range');
       }
-
-      cell.addEventListener('click', () => onDayClick(cell.dataset.date));
+      cell.addEventListener('click', (function(ds) {
+        return function() { onDayClick(ds); };
+      })(cell.dataset.date));
     }
-
     grid.appendChild(cell);
   }
 }
@@ -462,11 +438,9 @@ function onDayClick(dateStr) {
     } else {
       state.endDate = dateStr;
     }
-
     state.selectingEnd = false;
     checkAvailability();
   }
-
   renderCalendar();
   updateDateDisplay();
 }
@@ -479,49 +453,41 @@ function changeMonth(dir) {
 }
 
 function updateDateDisplay() {
-  const el = document.getElementById('dateDisplay');
+  var el = document.getElementById('dateDisplay');
   el.innerHTML = '';
-
   if (state.startDate) {
-    el.innerHTML += `<div class="date-chip"><span class="date-chip-label">Pickup</span>${formatDate(state.startDate)}</div>`;
+    el.innerHTML += '<div class="date-chip"><span class="date-chip-label">Pickup</span>' + formatDate(state.startDate) + '</div>';
   }
-
   if (state.endDate) {
-    el.innerHTML += `<div class="date-chip"><span class="date-chip-label">Return</span>${formatDate(state.endDate)}</div>`;
-    const days = Math.round((new Date(state.endDate) - new Date(state.startDate)) / 86400000);
-    el.innerHTML += `<div class="date-chip"><span class="date-chip-label">Duration</span>${days} day${days !== 1 ? 's' : ''}</div>`;
+    el.innerHTML += '<div class="date-chip"><span class="date-chip-label">Return</span>' + formatDate(state.endDate) + '</div>';
+    var days = Math.round((new Date(state.endDate) - new Date(state.startDate)) / 86400000);
+    el.innerHTML += '<div class="date-chip"><span class="date-chip-label">Duration</span>' + days + ' day' + (days !== 1 ? 's' : '') + '</div>';
   }
 }
 
 function formatDate(str) {
-  const d = new Date(str + 'T12:00:00');
+  var d = new Date(str + 'T12:00:00');
   return d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric', year:'numeric' });
 }
 
-// ---- AVAILABILITY ----
 async function checkAvailability() {
   if (!state.startDate || !state.endDate) return;
-
-  const content = document.getElementById('availContent');
-  content.innerHTML = '<div class="avail-placeholder"><span class="loading"></span> Checking availability…</div>';
+  var content = document.getElementById('availContent');
+  content.innerHTML = '<div class="avail-placeholder"><span class="loading"></span> Checking availability...</div>';
 
   try {
-    const url =
-      `${CONFIG.SCRIPT_URL}?action=getAvailability` +
-      `&pickupDate=${encodeURIComponent(state.startDate)}` +
-      `&returnDate=${encodeURIComponent(state.endDate)}`;
+    var url = CONFIG.SCRIPT_URL + '?action=getAvailability' +
+      '&pickupDate=' + encodeURIComponent(state.startDate) +
+      '&returnDate=' + encodeURIComponent(state.endDate);
 
-    const res = await fetch(url);
-    const data = await res.json();
+    var res = await fetch(url);
+    var data = await res.json();
 
-    if (data.status !== 'ok') {
-      throw new Error(data.message || 'Availability check failed');
-    }
+    if (data.status !== 'ok') throw new Error(data.message || 'Availability check failed');
 
     state.availability = {};
-
-    CONFIG.ASSETS.forEach(asset => {
-      const result = data.availability[asset.id];
+    CONFIG.ASSETS.forEach(function(asset) {
+      var result = data.availability[asset.id];
       asset.max = result ? result.maxAvailable : 0;
       state.availability[asset.id] = result ? result.available : 0;
     });
@@ -529,189 +495,156 @@ async function checkAvailability() {
     renderAvailability();
     document.getElementById('btnToStep2').disabled = false;
 
-  } catch (err) {
+  } catch(err) {
     console.error('Availability error:', err);
-    content.innerHTML = `
-      <div class="alert alert-warn">
-        ⚠ Could not check availability. Confirm your Apps Script is deployed and your Inventory tab has assetId and maxAvailable.
-      </div>
-    `;
+    content.innerHTML = '<div class="alert alert-warn">Could not check availability. Please confirm your Apps Script is deployed and your Inventory tab has assetId and maxAvailable columns.</div>';
     document.getElementById('btnToStep2').disabled = true;
   }
 }
 
 function renderAvailability() {
-  const content = document.getElementById('availContent');
+  var content = document.getElementById('availContent');
   content.innerHTML = '<div class="avail-grid" id="availGrid"></div>';
+  var grid = document.getElementById('availGrid');
 
-  const grid = document.getElementById('availGrid');
+  CONFIG.ASSETS.forEach(function(a) {
+    var avail = Number(state.availability[a.id]) || 0;
+    var max   = Number(a.max) || 0;
+    var pct   = max > 0 ? avail / max : 0;
+    var cls   = avail === 0 ? 'unavailable' : pct < 0.3 ? 'partial' : 'available';
+    var label = avail === 0 ? 'NONE AVAILABLE' : 'of ' + max + ' available';
 
-  CONFIG.ASSETS.forEach(a => {
-    const avail = Number(state.availability[a.id]) || 0;
-    const max = Number(a.max) || 0;
-    const pct = max > 0 ? avail / max : 0;
-    const cls = avail === 0 ? 'unavailable' : pct < 0.3 ? 'partial' : 'available';
-    const statusLabel = avail === 0 ? 'NONE AVAILABLE' : `of ${max} available`;
-
-    grid.innerHTML += `
-      <div class="avail-item ${cls}">
-        <div class="avail-item-name">${a.icon} ${a.name}</div>
-        <div class="avail-item-count">${avail}</div>
-        <div class="avail-item-label">${statusLabel}</div>
-      </div>`;
+    grid.innerHTML += '<div class="avail-item ' + cls + '">' +
+      '<div class="avail-item-name">' + a.name + '</div>' +
+      '<div class="avail-item-count">' + avail + '</div>' +
+      '<div class="avail-item-label">' + label + '</div>' +
+      '</div>';
   });
 }
 
-// ---- ASSET SELECTION ----
 function renderAssetGrid() {
-  const grid = document.getElementById('assetGrid');
+  var grid = document.getElementById('assetGrid');
   grid.innerHTML = '';
   state.quantities = {};
 
-  CONFIG.ASSETS.forEach(a => {
-    const avail = Number(state.availability[a.id]) || 0;
+  CONFIG.ASSETS.forEach(function(a) {
+    var avail = Number(state.availability[a.id]) || 0;
     state.quantities[a.id] = 0;
 
-    grid.innerHTML += `
-      <div class="asset-card" id="card-${a.id}">
-        <div class="asset-card-top">
-          <div style="font-size:28px">${a.icon}</div>
-          <div class="asset-avail-badge ${avail > 0 ? 'ok' : 'none'}">${avail > 0 ? avail + ' AVAIL' : 'NONE'}</div>
-        </div>
-        <div class="asset-name">${a.name}</div>
-        <div class="qty-control">
-          <button class="qty-btn" onclick="changeQty('${a.id}', -1)" id="minus-${a.id}" disabled>−</button>
-          <input class="qty-input" type="number" id="qty-${a.id}" value="0" min="0" max="${avail}" onchange="onQtyChange('${a.id}')" ${avail === 0 ? 'disabled' : ''}>
-          <button class="qty-btn" onclick="changeQty('${a.id}', 1)" id="plus-${a.id}" ${avail === 0 ? 'disabled' : ''}>+</button>
-        </div>
-      </div>`;
+    grid.innerHTML += '<div class="asset-card" id="card-' + a.id + '">' +
+      '<div class="asset-card-top">' +
+      '<div class="asset-name">' + a.name + '</div>' +
+      '<div class="asset-avail-badge ' + (avail > 0 ? 'ok' : 'none') + '">' + (avail > 0 ? avail + ' AVAIL' : 'NONE') + '</div>' +
+      '</div>' +
+      '<div class="qty-control">' +
+      '<button class="qty-btn" onclick="changeQty(\'' + a.id + '\', -1)" id="minus-' + a.id + '" disabled>-</button>' +
+      '<input class="qty-input" type="number" id="qty-' + a.id + '" value="0" min="0" max="' + avail + '" onchange="onQtyChange(\'' + a.id + '\')" ' + (avail === 0 ? 'disabled' : '') + '>' +
+      '<button class="qty-btn" onclick="changeQty(\'' + a.id + '\', 1)" id="plus-' + a.id + '" ' + (avail === 0 ? 'disabled' : '') + '>+</button>' +
+      '</div></div>';
   });
 
   checkAssetSelection();
 }
 
 function changeQty(id, delta) {
-  const input = document.getElementById(`qty-${id}`);
-  const avail = Number(state.availability[id]) || 0;
-  let val = (parseInt(input.value) || 0) + delta;
+  var input = document.getElementById('qty-' + id);
+  var avail = Number(state.availability[id]) || 0;
+  var val = (parseInt(input.value) || 0) + delta;
   val = Math.max(0, Math.min(val, avail));
-
   input.value = val;
   state.quantities[id] = val;
-
-  document.getElementById(`minus-${id}`).disabled = val <= 0;
-  document.getElementById(`plus-${id}`).disabled = val >= avail;
-
+  document.getElementById('minus-' + id).disabled = val <= 0;
+  document.getElementById('plus-' + id).disabled = val >= avail;
   checkAssetSelection();
 }
 
 function onQtyChange(id) {
-  const input = document.getElementById(`qty-${id}`);
-  const avail = Number(state.availability[id]) || 0;
-  let val = Math.max(0, Math.min(parseInt(input.value) || 0, avail));
-
+  var input = document.getElementById('qty-' + id);
+  var avail = Number(state.availability[id]) || 0;
+  var val = Math.max(0, Math.min(parseInt(input.value) || 0, avail));
   input.value = val;
   state.quantities[id] = val;
-
-  document.getElementById(`minus-${id}`).disabled = val <= 0;
-  document.getElementById(`plus-${id}`).disabled = val >= avail;
-
+  document.getElementById('minus-' + id).disabled = val <= 0;
+  document.getElementById('plus-' + id).disabled = val >= avail;
   checkAssetSelection();
 }
 
 function checkAssetSelection() {
-  const anySelected = CONFIG.ASSETS.some(a => (state.quantities[a.id] || 0) > 0);
+  var anySelected = CONFIG.ASSETS.some(function(a) { return (state.quantities[a.id] || 0) > 0; });
   document.getElementById('btnToStep3').disabled = !anySelected;
 }
 
-// ---- NAVIGATION ----
 function goToStep(n) {
   if (n === 2) renderAssetGrid();
+  if (n === 3) document.getElementById('infoWarning').innerHTML = '';
+  if (n === 4) { if (!validateInfo()) return; renderReview(); }
 
-  if (n === 3) {
-    document.getElementById('infoWarning').innerHTML = '';
+  for (var i = 1; i <= 5; i++) {
+    document.getElementById('section' + i).classList.toggle('active', i === n);
   }
-
-  if (n === 4) {
-    if (!validateInfo()) return;
-    renderReview();
-  }
-
-  for (let i = 1; i <= 5; i++) {
-    document.getElementById(`section${i}`).classList.toggle('active', i === n);
-  }
-
-  for (let i = 1; i <= 4; i++) {
-    const step = document.getElementById(`step${i}`);
+  for (var j = 1; j <= 4; j++) {
+    var step = document.getElementById('step' + j);
     step.classList.remove('active','done');
-    if (i === n) step.classList.add('active');
-    if (i < n) step.classList.add('done');
+    if (j === n) step.classList.add('active');
+    if (j < n)  step.classList.add('done');
   }
-
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function validateInfo() {
-  const fields = ['eventName','pocName','pocEmail','pocPhone','pocDept'];
-  const labels = ['Event Name','POC Name','Email','Phone','Department'];
-  const warn = document.getElementById('infoWarning');
-
-  for (let i = 0; i < fields.length; i++) {
+  var fields = ['eventName','pocName','pocEmail','pocPhone','pocDept'];
+  var labels = ['Event Name','POC Name','Email','Phone','Department'];
+  var warn = document.getElementById('infoWarning');
+  for (var i = 0; i < fields.length; i++) {
     if (!document.getElementById(fields[i]).value.trim()) {
-      warn.innerHTML = `<div class="alert alert-warn">⚠ Please fill in: ${labels[i]}</div>`;
+      warn.innerHTML = '<div class="alert alert-warn">Please fill in: ' + labels[i] + '</div>';
       return false;
     }
   }
-
-  const email = document.getElementById('pocEmail').value.trim();
+  var email = document.getElementById('pocEmail').value.trim();
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    warn.innerHTML = `<div class="alert alert-warn">⚠ Please enter a valid email address.</div>`;
+    warn.innerHTML = '<div class="alert alert-warn">Please enter a valid email address.</div>';
     return false;
   }
-
   return true;
 }
 
 function renderReview() {
-  const grid = document.getElementById('reviewGrid');
-  const selectedAssets = CONFIG.ASSETS.filter(a => (state.quantities[a.id] || 0) > 0);
+  var grid = document.getElementById('reviewGrid');
+  var selectedAssets = CONFIG.ASSETS.filter(function(a) { return (state.quantities[a.id] || 0) > 0; });
+  var chips = selectedAssets.map(function(a) {
+    return '<div class="review-asset-chip">' + a.name + ' x ' + state.quantities[a.id] + '</div>';
+  }).join('');
 
-  grid.innerHTML = `
-    <div class="review-item"><div class="review-label">Event Name</div><div class="review-value">${document.getElementById('eventName').value}</div></div>
-    <div class="review-item"><div class="review-label">Department / Org</div><div class="review-value">${document.getElementById('pocDept').value}</div></div>
-    <div class="review-item"><div class="review-label">Point of Contact</div><div class="review-value">${document.getElementById('pocName').value}</div></div>
-    <div class="review-item"><div class="review-label">Email</div><div class="review-value">${document.getElementById('pocEmail').value}</div></div>
-    <div class="review-item"><div class="review-label">Phone</div><div class="review-value">${document.getElementById('pocPhone').value}</div></div>
-    <div class="review-item"><div class="review-label">Pickup Date</div><div class="review-value">${formatDate(state.startDate)}</div></div>
-    <div class="review-item"><div class="review-label">Return Date</div><div class="review-value">${formatDate(state.endDate)}</div></div>
-    <div class="review-assets">
-      <div class="review-label">Assets Requested</div>
-      <div class="review-asset-list">
-        ${selectedAssets.map(a => `<div class="review-asset-chip">${a.icon} ${a.name} × ${state.quantities[a.id]}</div>`).join('')}
-      </div>
-    </div>`;
+  grid.innerHTML =
+    '<div class="review-item"><div class="review-label">Event Name</div><div class="review-value">' + document.getElementById('eventName').value + '</div></div>' +
+    '<div class="review-item"><div class="review-label">Department / Org</div><div class="review-value">' + document.getElementById('pocDept').value + '</div></div>' +
+    '<div class="review-item"><div class="review-label">Point of Contact</div><div class="review-value">' + document.getElementById('pocName').value + '</div></div>' +
+    '<div class="review-item"><div class="review-label">Email</div><div class="review-value">' + document.getElementById('pocEmail').value + '</div></div>' +
+    '<div class="review-item"><div class="review-label">Phone</div><div class="review-value">' + document.getElementById('pocPhone').value + '</div></div>' +
+    '<div class="review-item"><div class="review-label">Pickup Date</div><div class="review-value">' + formatDate(state.startDate) + '</div></div>' +
+    '<div class="review-item"><div class="review-label">Return Date</div><div class="review-value">' + formatDate(state.endDate) + '</div></div>' +
+    '<div class="review-assets"><div class="review-label">Assets Requested</div><div class="review-asset-list">' + chips + '</div></div>';
 }
 
-// ---- SUBMIT ----
 async function submitRequest() {
-  const btn = document.getElementById('btnSubmit');
-  const warn = document.getElementById('submitWarning');
+  var btn = document.getElementById('btnSubmit');
+  var warn = document.getElementById('submitWarning');
   warn.innerHTML = '';
-
   btn.disabled = true;
-  btn.innerHTML = '<span class="loading"></span> Submitting…';
+  btn.innerHTML = '<span class="loading"></span> Submitting...';
 
-  const refNum = 'HE-' + Date.now().toString(36).toUpperCase();
-  const selectedAssets = CONFIG.ASSETS.filter(a => (state.quantities[a.id] || 0) > 0);
+  var refNum = 'HE-' + Date.now().toString(36).toUpperCase();
+  var selectedAssets = CONFIG.ASSETS.filter(function(a) { return (state.quantities[a.id] || 0) > 0; });
 
-  const payload = {
+  var payload = {
     action: 'submitReservation',
     refNumber: refNum,
     eventName: document.getElementById('eventName').value.trim(),
-    pocName: document.getElementById('pocName').value.trim(),
-    pocEmail: document.getElementById('pocEmail').value.trim(),
-    pocPhone: document.getElementById('pocPhone').value.trim(),
-    pocDept: document.getElementById('pocDept').value.trim(),
+    pocName:   document.getElementById('pocName').value.trim(),
+    pocEmail:  document.getElementById('pocEmail').value.trim(),
+    pocPhone:  document.getElementById('pocPhone').value.trim(),
+    pocDept:   document.getElementById('pocDept').value.trim(),
     pickupDate: state.startDate,
     returnDate: state.endDate,
     quantities: state.quantities,
@@ -727,190 +660,229 @@ async function submitRequest() {
       body: JSON.stringify(payload),
       mode: 'no-cors'
     });
-
-    document.getElementById('refNumber').textContent = `Reference: ${refNum}`;
+    document.getElementById('refNumber').textContent = 'Reference: ' + refNum;
     goToStep(5);
-
-  } catch (err) {
+  } catch(err) {
     console.error('Submit error:', err);
-    warn.innerHTML = '<div class="alert alert-warn">⚠ Could not submit request. Please contact the HE-CDER warehouse team.</div>';
+    warn.innerHTML = '<div class="alert alert-warn">Could not submit request. Please contact the HE-CDER warehouse team at 562-708-7619.</div>';
   }
 
   btn.disabled = false;
   btn.innerHTML = 'Submit Request';
 }
 
-// ---- ICS 213 PDF GENERATOR ----
+// ============================================================
+// ICS 213 GENERAL MESSAGE — FEMA OFFICIAL FORMAT
+// Matches the numbered field layout from the official form:
+// Fields 1-10 with exact FEMA field names and layout
+// No emoji characters used (causes PDF corruption)
+// ============================================================
 function generateICS213(data, selectedAssets) {
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({ unit: 'pt', format: 'letter' });
-  const W = 612, margin = 40;
+  var jsPDF = window.jspdf.jsPDF;
+  var doc = new jsPDF({ unit: 'pt', format: 'letter' });
+  var pageW = 612;
+  var margin = 36;
+  var formW = pageW - (margin * 2); // 540pt usable width
+  var y = margin;
 
-  doc.setFillColor(10, 22, 40);
-  doc.rect(0, 0, W, 60, 'F');
-  doc.setTextColor(201, 168, 76);
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(14);
-  doc.text('ICS 213 — GENERAL MESSAGE', margin, 26);
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(9);
-  doc.setTextColor(180, 195, 220);
-  doc.text('City Asset Reservation System  |  HE-CDER Warehouse  |  Long Beach', margin, 42);
-  doc.text(`Generated: ${new Date().toLocaleString()}`, W - margin, 42, { align: 'right' });
+  // ---- drawing helpers ----
 
-  doc.setDrawColor(201, 168, 76);
-  doc.setLineWidth(0.5);
-  doc.rect(margin, 70, W - margin*2, 28);
-  doc.setFillColor(240, 244, 255);
-  doc.rect(margin, 70, W - margin*2, 28, 'F');
-  doc.setTextColor(10, 22, 40);
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(10);
-  doc.text('ICS FORM 213 — GENERAL MESSAGE', W/2, 88, { align: 'center' });
+  // Single full-width labeled field box
+  // label = e.g. "1.  Incident Name (Optional):"
+  // value = string or array of strings (multiline)
+  // h = total box height in pts
+  function fieldBox(label, value, h) {
+    doc.setDrawColor(0, 0, 0);
+    doc.setLineWidth(0.75);
+    doc.rect(margin, y, formW, h);
 
-  let y = 108;
-
-  function row(label, value, h = 22) {
-    doc.setDrawColor(180, 190, 210);
-    doc.setLineWidth(0.3);
-    doc.rect(margin, y, W - margin*2, h);
-    doc.setFillColor(248, 250, 255);
-    doc.rect(margin, y, 120, h, 'F');
+    // field label — small, top-left inside box
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(8);
-    doc.setTextColor(80, 100, 140);
-    doc.text(label.toUpperCase(), margin + 5, y + h/2 + 3);
+    doc.setFontSize(7);
+    doc.setTextColor(0, 0, 0);
+    doc.text(label, margin + 3, y + 8);
+
+    // field value — normal weight, below label
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(10);
-    doc.setTextColor(10, 22, 40);
-    doc.text(String(value || '—'), margin + 128, y + h/2 + 3);
+    doc.setTextColor(0, 0, 0);
+
+    if (Array.isArray(value)) {
+      var ty = y + 18;
+      for (var i = 0; i < value.length; i++) {
+        if (value[i] !== '') {
+          doc.text(value[i], margin + 4, ty);
+        }
+        ty += 12;
+      }
+    } else {
+      doc.text(String(value || ''), margin + 4, y + 18);
+    }
+
     y += h;
   }
 
-  function rowHalf(l1, v1, l2, v2, h = 22) {
-    const half = (W - margin*2) / 2;
-    doc.setDrawColor(180, 190, 210);
-    doc.setLineWidth(0.3);
-    doc.rect(margin, y, W - margin*2, h);
+  // Two side-by-side fields on the same row
+  function fieldBoxHalf(label1, value1, label2, value2, h) {
+    var half = formW / 2;
+
+    doc.setDrawColor(0, 0, 0);
+    doc.setLineWidth(0.75);
+    doc.rect(margin, y, formW, h);
+    // center divider
     doc.line(margin + half, y, margin + half, y + h);
 
-    doc.setFillColor(248, 250, 255);
-    doc.rect(margin, y, 100, h, 'F');
+    // LEFT
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(8);
-    doc.setTextColor(80, 100, 140);
-    doc.text(l1.toUpperCase(), margin + 5, y + h/2 + 3);
+    doc.setFontSize(7);
+    doc.setTextColor(0, 0, 0);
+    doc.text(label1, margin + 3, y + 8);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(10);
-    doc.setTextColor(10, 22, 40);
-    doc.text(String(v1 || '—'), margin + 108, y + h/2 + 3);
+    doc.text(String(value1 || ''), margin + 4, y + 18);
 
-    doc.setFillColor(248, 250, 255);
-    doc.rect(margin + half, y, 100, h, 'F');
+    // RIGHT
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(8);
-    doc.setTextColor(80, 100, 140);
-    doc.text(l2.toUpperCase(), margin + half + 5, y + h/2 + 3);
+    doc.setFontSize(7);
+    doc.text(label2, margin + half + 3, y + 8);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(10);
-    doc.setTextColor(10, 22, 40);
-    doc.text(String(v2 || '—'), margin + half + 108, y + h/2 + 3);
+    doc.text(String(value2 || ''), margin + half + 4, y + 18);
+
     y += h;
   }
 
-  rowHalf('To:', 'HE-CDER Warehouse Team', 'From:', data.pocName);
-  rowHalf('Position:', 'Asset Manager', 'Position:', data.pocDept);
-  rowHalf('Date:', formatDate(data.submittedAt?.split('T')[0] || data.pickupDate), 'Time:', new Date(data.submittedAt).toLocaleTimeString());
-  row('Subject:', `Asset Reservation Request — ${data.eventName}`);
-  row('Ref Number:', data.refNumber);
+  // Three side-by-side fields — used for fields 4/5/6 and field 8
+  // widths = array of fractions [0.5, 0.25, 0.25]
+  function fieldBoxThree(labels, values, h, widths) {
+    var w0 = Math.round(formW * widths[0]);
+    var w1 = Math.round(formW * widths[1]);
+    var w2 = formW - w0 - w1;
+    var x1 = margin + w0;
+    var x2 = margin + w0 + w1;
 
-  y += 6;
-  doc.setFillColor(10, 22, 40);
-  doc.rect(margin, y, W - margin*2, 18, 'F');
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(9);
-  doc.setTextColor(201, 168, 76);
-  doc.text('MESSAGE', margin + 6, y + 12);
-  y += 18;
+    doc.setDrawColor(0, 0, 0);
+    doc.setLineWidth(0.75);
+    doc.rect(margin, y, formW, h);
+    doc.line(x1, y, x1, y + h);
+    doc.line(x2, y, x2, y + h);
 
-  const msgH = 150;
-  doc.setDrawColor(180, 190, 210);
-  doc.rect(margin, y, W - margin*2, msgH);
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(10);
-  doc.setTextColor(10, 22, 40);
+    var xs = [margin, x1, x2];
+    for (var i = 0; i < 3; i++) {
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(7);
+      doc.setTextColor(0, 0, 0);
+      doc.text(labels[i], xs[i] + 3, y + 8);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(10);
+      doc.text(String(values[i] || ''), xs[i] + 4, y + 18);
+    }
 
-  let mx = margin + 10;
-  let my = y + 16;
-  const lineH = 15;
-
-  function msgLine(text, bold = false) {
-    doc.setFont('helvetica', bold ? 'bold' : 'normal');
-    doc.text(text, mx, my);
-    my += lineH;
+    y += h;
   }
 
-  msgLine('A reservation request has been submitted for the following city assets:');
-  my += 4;
-
-  selectedAssets.forEach(a => {
-    msgLine(`  ${a.name.toUpperCase()}: ${data.quantities[a.id]} units`);
-  });
-
-  my += 4;
-  msgLine(`EVENT:         ${data.eventName}`);
-  msgLine(`PICKUP DATE:   ${formatDate(data.pickupDate)}`);
-  msgLine(`RETURN DATE:   ${formatDate(data.returnDate)}`);
-  msgLine(`DEPT / ORG:    ${data.pocDept}`);
-  msgLine(`CONTACT:       ${data.pocName}  |  ${data.pocEmail}  |  ${data.pocPhone}`);
-
-  y += msgH;
-  y += 6;
-  rowHalf('Signature:', '(Submitted via Online Portal)', 'Position:', data.pocDept);
-
-  y += 10;
-  doc.setFillColor(10, 22, 40);
-  doc.rect(margin, y, W - margin*2, 18, 'F');
+  // ---- Page title ----
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(9);
-  doc.setTextColor(201, 168, 76);
-  doc.text('REPLY / APPROVAL', margin + 6, y + 12);
-  y += 18;
+  doc.setFontSize(14);
+  doc.setTextColor(0, 0, 0);
+  doc.text('GENERAL MESSAGE (ICS 213)', pageW / 2, y + 14, { align: 'center' });
+  y += 26;
 
-  const replyH = 70;
-  doc.setDrawColor(180, 190, 210);
-  doc.rect(margin, y, W - margin*2, replyH);
-  doc.setFont('helvetica', 'italic');
-  doc.setFontSize(9);
-  doc.setTextColor(140, 150, 170);
-  doc.text('[ Approval / Denial notes to be completed by HE-CDER Warehouse Team ]', margin + 10, y + 20);
-  y += replyH;
+  // Outer border around entire form
+  var formStartY = y;
 
-  rowHalf('Approved By:', '', 'Date / Time:', '');
-  rowHalf('Signature:', '', 'Status:', '☐ Approved   ☐ Denied');
+  // ---- Field 1: Incident Name ----
+  fieldBox('1.  Incident Name (Optional):', data.eventName, 26);
 
-  y += 16;
-  doc.setDrawColor(201, 168, 76);
-  doc.setLineWidth(0.5);
-  doc.line(margin, y, W - margin, y);
-  y += 12;
+  // ---- Fields 2 & 3: To / From ----
+  fieldBoxHalf(
+    '2.  To (Name and Position):',
+    'HE-CDER Warehouse Team / Asset Manager',
+    '3.  From (Name and Position):',
+    data.pocName + ' / ' + data.pocDept,
+    26
+  );
+
+  // ---- Fields 4, 5, 6: Subject / Date / Time ----
+  var submitDate = data.submittedAt ? data.submittedAt.split('T')[0] : data.pickupDate;
+  var submitTime = new Date(data.submittedAt).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+  fieldBoxThree(
+    ['4.  Subject:', '5.  Date:', '6.  Time:'],
+    ['Asset Reservation Request - Ref: ' + data.refNumber, formatDate(submitDate), submitTime],
+    26,
+    [0.5, 0.25, 0.25]
+  );
+
+  // ---- Field 7: Message ----
+  // Build plain-text message lines — NO emoji, NO special characters
+  var msgLines = [
+    'A reservation request has been submitted for the following city assets:',
+    ''
+  ];
+
+  for (var ai = 0; ai < selectedAssets.length; ai++) {
+    var a = selectedAssets[ai];
+    msgLines.push('  ' + a.name.toUpperCase() + ': ' + data.quantities[a.id] + ' unit(s)');
+  }
+
+  msgLines.push('');
+  msgLines.push('Event:         ' + data.eventName);
+  msgLines.push('Pickup Date:   ' + formatDate(data.pickupDate));
+  msgLines.push('Return Date:   ' + formatDate(data.returnDate));
+  msgLines.push('Department:    ' + data.pocDept);
+  msgLines.push('Contact:       ' + data.pocName);
+  msgLines.push('Email:         ' + data.pocEmail);
+  msgLines.push('Phone:         ' + data.pocPhone);
+  msgLines.push('');
+  msgLines.push('Status: PENDING APPROVAL by HE-CDER Warehouse Team');
+
+  var msgH = 18 + (msgLines.length * 12) + 8;
+  fieldBox('7.  Message:', msgLines, msgH);
+
+  // ---- Field 8: Approved By (three columns) ----
+  fieldBoxThree(
+    ['8.  Approved by:  Name:', 'Signature:', 'Position/Title:'],
+    ['', '', ''],
+    26,
+    [0.4, 0.35, 0.25]
+  );
+
+  // ---- Field 9: Reply ----
+  fieldBox('9.  Reply:', '', 56);
+
+  // ---- Field 10: Replied By (three columns) ----
+  fieldBoxThree(
+    ['10.  Replied by:  Name:', 'Position/Title:', 'Signature:'],
+    ['', '', ''],
+    26,
+    [0.35, 0.35, 0.3]
+  );
+
+  // ---- ICS 213 Date/Time footer row ----
+  fieldBox('ICS 213     Date/Time:', new Date().toLocaleString(), 22);
+
+  // ---- Bottom agency line ----
+  y += 6;
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(8);
-  doc.setTextColor(140, 150, 170);
-  doc.text('City Asset Reservation System  •  HE-CDER Warehouse  •  Long Beach, CA', W/2, y, { align: 'center' });
-  doc.text(`Ref: ${data.refNumber}  •  Auto-generated on submission`, W/2, y + 12, { align: 'center' });
+  doc.setFontSize(7);
+  doc.setTextColor(100, 100, 100);
+  doc.text(
+    'City Asset Reservation System  |  HE-CDER Warehouse  |  Long Beach, CA  |  Ref: ' + data.refNumber + '  |  Auto-generated on submission',
+    pageW / 2, y,
+    { align: 'center' }
+  );
 
   return doc.output('datauristring').split(',')[1];
 }
 
-// ---- RESET ----
+// ---- Reset ----
 function resetForm() {
   state.startDate = null;
   state.endDate = null;
   state.selectingEnd = false;
   state.availability = {};
   state.quantities = {};
-
   document.getElementById('eventName').value = '';
   document.getElementById('pocName').value = '';
   document.getElementById('pocEmail').value = '';
@@ -919,12 +891,10 @@ function resetForm() {
   document.getElementById('availContent').innerHTML = '<div class="avail-placeholder">Select dates above to check availability</div>';
   document.getElementById('dateDisplay').innerHTML = '';
   document.getElementById('btnToStep2').disabled = true;
-
   goToStep(1);
   renderCalendar();
 }
 
-// ---- INIT ----
 renderCalendar();
 </script>
 </body>
