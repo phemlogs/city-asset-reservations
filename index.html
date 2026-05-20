@@ -688,12 +688,12 @@ function generateICS213(data, selectedAssets) {
   const pageW = 612;
   const margin = 36;
   const formW = pageW - margin * 2;
-  let y = 24;
+  let y = 18;
 
   // Basic black-and-white FEMA-style form. No blue, no gold, no emojis.
   doc.setTextColor(0, 0, 0);
   doc.setDrawColor(0, 0, 0);
-  doc.setLineWidth(1.5);
+  doc.setLineWidth(1.25);
 
   function textBold(txt, x, y, size = 10, options) {
     doc.setFont('helvetica', 'bold');
@@ -789,7 +789,7 @@ function generateICS213(data, selectedAssets) {
   y += row456H;
 
   // 7. Message
-  const messageH = 300;
+  const messageH = 265;
   drawBox(x, y, formW, messageH);
   textBold('7. Message:', x + 6, y + 15);
 
@@ -845,7 +845,7 @@ function generateICS213(data, selectedAssets) {
   y += approvedH;
 
   // 9. Reply
-  const replyH = 190;
+  const replyH = 115;
   drawBox(x, y, formW, replyH);
   textBold('9. Reply:', x + 6, y + 15);
   y += replyH;
@@ -867,7 +867,7 @@ function generateICS213(data, selectedAssets) {
   y += repliedH;
 
   // Footer row
-  const footerH = 22;
+  const footerH = 20;
   drawBox(x, y, formW, footerH);
   doc.line(x + 216, y, x + 216, y + footerH);
 
