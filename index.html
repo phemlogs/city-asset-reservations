@@ -688,12 +688,12 @@ function generateICS213(data, selectedAssets) {
   const pageW = 612;
   const margin = 36;
   const formW = pageW - margin * 2;
-  let y = 54;
+  let y = 24;
 
   // Basic black-and-white FEMA-style form. No blue, no gold, no emojis.
   doc.setTextColor(0, 0, 0);
   doc.setDrawColor(0, 0, 0);
-  doc.setLineWidth(1);
+  doc.setLineWidth(1.5);
 
   function textBold(txt, x, y, size = 10, options) {
     doc.setFont('helvetica', 'bold');
@@ -845,7 +845,7 @@ function generateICS213(data, selectedAssets) {
   y += approvedH;
 
   // 9. Reply
-  const replyH = 235;
+  const replyH = 190;
   drawBox(x, y, formW, replyH);
   textBold('9. Reply:', x + 6, y + 15);
   y += replyH;
