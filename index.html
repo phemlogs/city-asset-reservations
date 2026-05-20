@@ -339,9 +339,9 @@
       <div class="success-icon">&#10003;</div>
       <div class="success-title">Request Submitted</div>
       <div class="success-sub">
-        Not just yet! Your reservation request has been sent to our team.<br>
-        An ICS 213 General Message has been generated and documented.<br>
-        You will receive a confirmation email if approved.
+        Your reservation request has been sent to the HE-CDER warehouse team.<br>
+        An ICS 213 General Message has been generated and emailed to your team.<br>
+        You will receive a confirmation email once approved.
       </div>
       <div class="success-ref" id="refNumber"></div>
       <div class="btn-row" style="justify-content:center; margin-top:32px;">
@@ -673,205 +673,258 @@ async function submitRequest() {
 
 // ============================================================
 // ICS 213 GENERAL MESSAGE — FEMA OFFICIAL FORMAT
-// Matches the numbered field layout from the official form:
-// Fields 1-10 with exact FEMA field names and layout
-// No emoji characters used (causes PDF corruption)
+// Pixel-accurate match to the official FEMA ICS 213 form.
+// Bold inline field labels, correct row structure, no emojis.
 // ============================================================
 function generateICS213(data, selectedAssets) {
   var jsPDF = window.jspdf.jsPDF;
   var doc = new jsPDF({ unit: 'pt', format: 'letter' });
   var pageW = 612;
   var margin = 36;
-  var formW = pageW - (margin * 2); // 540pt usable width
+  var fw = pageW - margin * 2; // 540pt
   var y = margin;
 
-  // ---- drawing helpers ----
+  var LH = 13; // line height for body text
 
-  // Single full-width labeled field box
-  // label = e.g. "1.  Incident Name (Optional):"
-  // value = string or array of strings (multiline)
-  // h = total box height in pts
-  function fieldBox(label, value, h) {
-    doc.setDrawColor(0, 0, 0);
-    doc.setLineWidth(0.75);
-    doc.rect(margin, y, formW, h);
-
-    // field label — small, top-left inside box
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(7);
-    doc.setTextColor(0, 0, 0);
-    doc.text(label, margin + 3, y + 8);
-
-    // field value — normal weight, below label
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(10);
-    doc.setTextColor(0, 0, 0);
-
-    if (Array.isArray(value)) {
-      var ty = y + 18;
-      for (var i = 0; i < value.length; i++) {
-        if (value[i] !== '') {
-          doc.text(value[i], margin + 4, ty);
-        }
-        ty += 12;
-      }
-    } else {
-      doc.text(String(value || ''), margin + 4, y + 18);
-    }
-
-    y += h;
-  }
-
-  // Two side-by-side fields on the same row
-  function fieldBoxHalf(label1, value1, label2, value2, h) {
-    var half = formW / 2;
-
-    doc.setDrawColor(0, 0, 0);
-    doc.setLineWidth(0.75);
-    doc.rect(margin, y, formW, h);
-    // center divider
-    doc.line(margin + half, y, margin + half, y + h);
-
-    // LEFT
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(7);
-    doc.setTextColor(0, 0, 0);
-    doc.text(label1, margin + 3, y + 8);
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(10);
-    doc.text(String(value1 || ''), margin + 4, y + 18);
-
-    // RIGHT
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(7);
-    doc.text(label2, margin + half + 3, y + 8);
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(10);
-    doc.text(String(value2 || ''), margin + half + 4, y + 18);
-
-    y += h;
-  }
-
-  // Three side-by-side fields — used for fields 4/5/6 and field 8
-  // widths = array of fractions [0.5, 0.25, 0.25]
-  function fieldBoxThree(labels, values, h, widths) {
-    var w0 = Math.round(formW * widths[0]);
-    var w1 = Math.round(formW * widths[1]);
-    var w2 = formW - w0 - w1;
-    var x1 = margin + w0;
-    var x2 = margin + w0 + w1;
-
-    doc.setDrawColor(0, 0, 0);
-    doc.setLineWidth(0.75);
-    doc.rect(margin, y, formW, h);
-    doc.line(x1, y, x1, y + h);
-    doc.line(x2, y, x2, y + h);
-
-    var xs = [margin, x1, x2];
-    for (var i = 0; i < 3; i++) {
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(7);
-      doc.setTextColor(0, 0, 0);
-      doc.text(labels[i], xs[i] + 3, y + 8);
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(10);
-      doc.text(String(values[i] || ''), xs[i] + 4, y + 18);
-    }
-
-    y += h;
-  }
-
-  // ---- Page title ----
+  // ── Title ────────────────────────────────────────────────
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(14);
-  doc.setTextColor(0, 0, 0);
+  doc.setTextColor(0);
   doc.text('GENERAL MESSAGE (ICS 213)', pageW / 2, y + 14, { align: 'center' });
-  y += 26;
+  y += 28;
 
-  // Outer border around entire form
-  var formStartY = y;
+  // ── Helper: draw outer rect + bold inline label + normal value
+  // labelBold  = the "1. Incident Name (Optional):" portion (bold)
+  // value      = the plain text value that follows on the same line
+  // boxH       = total height of the box
+  // noTopBorder = skip top border (for boxes that share a border with prev)
+  function inlineRow(labelBold, value, boxH) {
+    doc.setDrawColor(0);
+    doc.setLineWidth(0.75);
+    doc.rect(margin, y, fw, boxH);
 
-  // ---- Field 1: Incident Name ----
-  fieldBox('1.  Incident Name (Optional):', data.eventName, 26);
+    var textY = y + (boxH / 2) + 4;
 
-  // ---- Fields 2 & 3: To / From ----
-  fieldBoxHalf(
-    '2.  To (Name and Position):',
-    'HE-CDER Warehouse Team / Asset Manager',
-    '3.  From (Name and Position):',
-    data.pocName + ' / ' + data.pocDept,
-    26
-  );
+    // bold label
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(10);
+    doc.setTextColor(0);
+    doc.text(labelBold, margin + 4, textY);
 
-  // ---- Fields 4, 5, 6: Subject / Date / Time ----
+    // measure bold label width so value starts right after
+    var labelW = doc.getTextWidth(labelBold);
+
+    // normal value
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    doc.text(String(value || ''), margin + 4 + labelW + 2, textY);
+
+    y += boxH;
+  }
+
+  // ── Helper: row with field 4 (wide) + field 5 + field 6 (narrow)
+  // Matches FEMA layout: Subject spans ~60%, Date ~20%, Time ~20%
+  function row456(subject, date, time, boxH) {
+    doc.setDrawColor(0);
+    doc.setLineWidth(0.75);
+    doc.rect(margin, y, fw, boxH);
+
+    var w4 = Math.round(fw * 0.60);
+    var w5 = Math.round(fw * 0.20);
+    var w6 = fw - w4 - w5;
+    var x5 = margin + w4;
+    var x6 = margin + w4 + w5;
+
+    doc.line(x5, y, x5, y + boxH);
+    doc.line(x6, y, x6, y + boxH);
+
+    var textY = y + (boxH / 2) + 4;
+
+    // Field 4
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(10);
+    doc.text('4. Subject: ', margin + 4, textY);
+    var lw4 = doc.getTextWidth('4. Subject: ');
+    doc.setFont('helvetica', 'normal');
+    doc.text(String(subject || ''), margin + 4 + lw4, textY);
+
+    // Field 5
+    doc.setFont('helvetica', 'bold');
+    doc.text('5. Date: ', x5 + 4, textY);
+    var lw5 = doc.getTextWidth('5. Date: ');
+    doc.setFont('helvetica', 'normal');
+    doc.text(String(date || ''), x5 + 4 + lw5, textY);
+
+    // Field 6
+    doc.setFont('helvetica', 'bold');
+    doc.text('6. Time ', x6 + 4, textY);
+    var lw6 = doc.getTextWidth('6. Time ');
+    doc.setFont('helvetica', 'normal');
+    doc.text(String(time || ''), x6 + 4 + lw6, textY);
+
+    y += boxH;
+  }
+
+  // ── Helper: message box — bold "7. Message:" label then multiline body
+  function messageBox(lines, boxH) {
+    doc.setDrawColor(0);
+    doc.setLineWidth(0.75);
+    doc.rect(margin, y, fw, boxH);
+
+    var tx = margin + 4;
+    var ty = y + 14;
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(10);
+    doc.text('7. Message:', tx, ty);
+    ty += LH + 2;
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    for (var i = 0; i < lines.length; i++) {
+      if (lines[i] !== '') doc.text(lines[i], tx, ty);
+      ty += LH;
+    }
+
+    y += boxH;
+  }
+
+  // ── Helper: single-line row with 3 inline segments (fields 8 and 10)
+  // segs = [{bold, value}, {bold, value}, {bold, value}]
+  function inlineSegRow(segs, boxH) {
+    doc.setDrawColor(0);
+    doc.setLineWidth(0.75);
+    doc.rect(margin, y, fw, boxH);
+
+    var tx = margin + 4;
+    var textY = y + (boxH / 2) + 4;
+    var segW = fw / segs.length;
+
+    for (var i = 0; i < segs.length; i++) {
+      var sx = margin + 4 + i * segW;
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(10);
+      doc.text(segs[i].bold, sx, textY);
+      var bw = doc.getTextWidth(segs[i].bold);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(10);
+      // value with underline spacer if empty
+      var val = segs[i].value || '';
+      doc.text(val, sx + bw + 2, textY);
+      // draw a blank underline if no value
+      if (!val) {
+        var lineEndX = Math.min(sx + segW - 8, margin + fw - 4);
+        doc.setLineWidth(0.5);
+        doc.line(sx + bw + 2, textY + 2, lineEndX, textY + 2);
+        doc.setLineWidth(0.75);
+      }
+    }
+    y += boxH;
+  }
+
+  // ── Helper: empty box with bold label (fields 9 and footer)
+  function emptyLabelBox(boldLabel, boxH) {
+    doc.setDrawColor(0);
+    doc.setLineWidth(0.75);
+    doc.rect(margin, y, fw, boxH);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(10);
+    doc.text(boldLabel, margin + 4, y + 14);
+    y += boxH;
+  }
+
+  // ── Helper: bottom ICS 213 footer row (split left/right)
+  function footerRow(boxH) {
+    doc.setDrawColor(0);
+    doc.setLineWidth(0.75);
+    doc.rect(margin, y, fw, boxH);
+
+    var half = Math.round(fw * 0.25);
+    doc.line(margin + half, y, margin + half, y + boxH);
+
+    var textY = y + (boxH / 2) + 4;
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(10);
+    doc.text('ICS 213', margin + 4, textY);
+
+    doc.setFont('helvetica', 'bold');
+    doc.text('Date/Time: ', margin + half + 4, textY);
+    var dtW = doc.getTextWidth('Date/Time: ');
+    doc.setFont('helvetica', 'normal');
+    doc.text(new Date().toLocaleString(), margin + half + 4 + dtW, textY);
+
+    y += boxH;
+  }
+
+  // ═══════════════════════════════════════════════
+  // BUILD THE FORM
+  // ═══════════════════════════════════════════════
+
+  // Field 1
+  inlineRow('1. Incident Name (Optional): ', data.eventName, 24);
+
+  // Field 2
+  inlineRow('2. To (Name and Position): ', 'HE-CDER Warehouse Team', 24);
+
+  // Field 3
+  inlineRow('3. From (Name and Position): ', data.pocName + ', ' + data.pocDept, 24);
+
+  // Fields 4 / 5 / 6
   var submitDate = data.submittedAt ? data.submittedAt.split('T')[0] : data.pickupDate;
-  var submitTime = new Date(data.submittedAt).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+  var d = new Date(data.submittedAt);
+  var hh = d.getHours();
+  var mm = d.getMinutes().toString().padStart(2,'0');
+  var ampm = hh >= 12 ? 'PM' : 'AM';
+  hh = hh % 12 || 12;
+  var submitTime = hh + ':' + mm + ' ' + ampm;
 
-  fieldBoxThree(
-    ['4.  Subject:', '5.  Date:', '6.  Time:'],
-    ['Asset Reservation Request - Ref: ' + data.refNumber, formatDate(submitDate), submitTime],
-    26,
-    [0.5, 0.25, 0.25]
+  row456(
+    'Asset Reservation Request',
+    submitDate,
+    submitTime,
+    24
   );
 
-  // ---- Field 7: Message ----
-  // Build plain-text message lines — NO emoji, NO special characters
-  var msgLines = [
-    'A reservation request has been submitted for the following city assets:',
-    ''
-  ];
+  // Field 7 — build message lines, NO emojis
+  var msgLines = [];
+  msgLines.push('Reference Number: ' + data.refNumber);
+  msgLines.push('');
+  msgLines.push('A reservation request has been submitted for the following city assets:');
 
   for (var ai = 0; ai < selectedAssets.length; ai++) {
-    var a = selectedAssets[ai];
-    msgLines.push('  ' + a.name.toUpperCase() + ': ' + data.quantities[a.id] + ' unit(s)');
+    msgLines.push('  ' + selectedAssets[ai].name.toUpperCase() + ': ' + data.quantities[selectedAssets[ai].id] + ' unit(s)');
   }
 
   msgLines.push('');
-  msgLines.push('Event:         ' + data.eventName);
-  msgLines.push('Pickup Date:   ' + formatDate(data.pickupDate));
-  msgLines.push('Return Date:   ' + formatDate(data.returnDate));
-  msgLines.push('Department:    ' + data.pocDept);
-  msgLines.push('Contact:       ' + data.pocName);
-  msgLines.push('Email:         ' + data.pocEmail);
-  msgLines.push('Phone:         ' + data.pocPhone);
+  msgLines.push('EVENT: ' + data.eventName);
+  msgLines.push('PICKUP DATE: ' + formatDate(data.pickupDate));
+  msgLines.push('RETURN DATE: ' + formatDate(data.returnDate));
+  msgLines.push('DEPT / ORG: ' + data.pocDept);
+  msgLines.push('CONTACT: ' + data.pocName + ' | ' + data.pocEmail + ' | ' + data.pocPhone);
   msgLines.push('');
   msgLines.push('Status: PENDING APPROVAL by HE-CDER Warehouse Team');
 
-  var msgH = 18 + (msgLines.length * 12) + 8;
-  fieldBox('7.  Message:', msgLines, msgH);
+  var msgBoxH = 28 + (msgLines.length * LH) + 10;
+  messageBox(msgLines, msgBoxH);
 
-  // ---- Field 8: Approved By (three columns) ----
-  fieldBoxThree(
-    ['8.  Approved by:  Name:', 'Signature:', 'Position/Title:'],
-    ['', '', ''],
-    26,
-    [0.4, 0.35, 0.25]
-  );
+  // Field 8 — Approved by (inline segments, no box dividers)
+  inlineSegRow([
+    { bold: '8. Approved by:  Name: ', value: '' },
+    { bold: 'Signature: ',             value: '' },
+    { bold: 'Position/Title: ',        value: '' }
+  ], 24);
 
-  // ---- Field 9: Reply ----
-  fieldBox('9.  Reply:', '', 56);
+  // Field 9 — Reply (large empty box)
+  emptyLabelBox('9. Reply:', 120);
 
-  // ---- Field 10: Replied By (three columns) ----
-  fieldBoxThree(
-    ['10.  Replied by:  Name:', 'Position/Title:', 'Signature:'],
-    ['', '', ''],
-    26,
-    [0.35, 0.35, 0.3]
-  );
+  // Field 10 — Replied by
+  inlineSegRow([
+    { bold: '10. Replied by:  Name: ', value: '' },
+    { bold: 'Position/Title: ',        value: '' },
+    { bold: 'Signature: ',             value: '' }
+  ], 24);
 
-  // ---- ICS 213 Date/Time footer row ----
-  fieldBox('ICS 213     Date/Time:', new Date().toLocaleString(), 22);
-
-  // ---- Bottom agency line ----
-  y += 6;
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(7);
-  doc.setTextColor(100, 100, 100);
-  doc.text(
-    'City Asset Reservation System  |  HE-CDER Warehouse  |  Long Beach, CA  |  Ref: ' + data.refNumber + '  |  Auto-generated on submission',
-    pageW / 2, y,
-    { align: 'center' }
-  );
+  // ICS 213 footer row
+  footerRow(20);
 
   return doc.output('datauristring').split(',')[1];
 }
