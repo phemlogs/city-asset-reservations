@@ -162,9 +162,10 @@
   .form-grid.full { grid-template-columns: 1fr; }
   .field { display: flex; flex-direction: column; gap: 6px; }
   .field label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; }
-  .field input, .field select { background: var(--navy-mid); border: 1px solid var(--border); border-radius: 3px; color: var(--white); font-family: 'Inter', sans-serif; font-size: 14px; padding: 10px 14px; outline: none; transition: border-color 0.2s; width: 100%; }
-  .field input:focus, .field select:focus { border-color: var(--gold); }
-  .field input::placeholder { color: var(--grey); }
+  .field input, .field select, .field textarea { background: var(--navy-mid); border: 1px solid var(--border); border-radius: 3px; color: var(--white); font-family: 'Inter', sans-serif; font-size: 14px; padding: 10px 14px; outline: none; transition: border-color 0.2s; width: 100%; }
+  .field textarea { min-height: 92px; resize: vertical; line-height: 1.5; }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold); }
+  .field input::placeholder, .field textarea::placeholder { color: var(--grey); }
   .field select option { background: var(--navy-mid); }
 
   .asset-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin: 20px 0; }
@@ -305,7 +306,7 @@
   <div class="section" id="section3">
     <div class="section-header">
       <div class="section-title">Your Information</div>
-      <div class="section-desc">// All fields required. A confirmation will be sent to your email.</div>
+      <div class="section-desc">// Required contact fields plus billing/reference information for logistics support or lost/damaged assets.</div>
     </div>
     <div class="form-grid">
       <div class="field" style="grid-column: 1 / -1;"><label>Event Name</label><input type="text" id="eventName" placeholder="e.g. Community Health Fair 2026"></div>
@@ -313,6 +314,9 @@
       <div class="field"><label>Email Address</label><input type="email" id="pocEmail" placeholder="your@email.gov"></div>
       <div class="field"><label>Phone Number</label><input type="tel" id="pocPhone" placeholder="(562) 000-0000"></div>
       <div class="field"><label>Department / Organization</label><input type="text" id="pocDept" placeholder="e.g. Parks and Recreation"></div>
+      <div class="field"><label>GL String</label><input type="text" id="glString" placeholder="For lost/damaged asset replacement costs, if applicable"></div>
+      <div class="field"><label>Index Code</label><input type="text" id="indexCode" placeholder="Required if logistics assistance is needed"></div>
+      <div class="field" style="grid-column: 1 / -1;"><label>Additional Information</label><textarea id="additionalInfo" placeholder="Include setup details, special instructions, delivery needs, or the asset name if you selected Other."></textarea></div>
     </div>
     <div id="infoWarning"></div>
     <div class="btn-row">
@@ -362,7 +366,8 @@ const CONFIG = {
     { id: 'safetrailer',     name: 'SAFE Trailer',      max: 0 },
     { id: 'tvscreentrailer', name: 'TV Screen Trailer', max: 0 },
     { id: 'photobooth',      name: 'Photo Booth',       max: 0 }
-  ]
+  ],
+  OTHER_ASSET: { id: 'other', name: 'Other Asset', max: 99 }
 };
 
 let state = {
@@ -376,6 +381,14 @@ let state = {
 };
 
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+function getSelectedAssets() {
+  var selected = CONFIG.ASSETS.filter(function(a) { return (state.quantities[a.id] || 0) > 0; });
+  if ((state.quantities.other || 0) > 0) {
+    selected.push(CONFIG.OTHER_ASSET);
+  }
+  return selected;
+}
 
 function renderCalendar() {
   const label = document.getElementById('calMonthLabel');
@@ -543,12 +556,27 @@ function renderAssetGrid() {
       '</div></div>';
   });
 
+  var other = CONFIG.OTHER_ASSET;
+  state.quantities.other = 0;
+  grid.innerHTML += '<div class="asset-card" id="card-other">' +
+    '<div class="asset-card-top">' +
+    '<div class="asset-name">' + other.name + '</div>' +
+    '<div class="asset-avail-badge ok">REQUEST</div>' +
+    '</div>' +
+    '<div class="qty-control">' +
+    '<button class="qty-btn" onclick="changeQty(\'other\', -1)" id="minus-other" disabled>-</button>' +
+    '<input class="qty-input" type="number" id="qty-other" value="0" min="0" max="99" onchange="onQtyChange(\'other\')">' +
+    '<button class="qty-btn" onclick="changeQty(\'other\', 1)" id="plus-other">+</button>' +
+    '</div>' +
+    '<div class="avail-item-label">Use Additional Information to describe the requested item.</div>' +
+    '</div>';
+
   checkAssetSelection();
 }
 
 function changeQty(id, delta) {
   var input = document.getElementById('qty-' + id);
-  var avail = Number(state.availability[id]) || 0;
+  var avail = id === 'other' ? CONFIG.OTHER_ASSET.max : (Number(state.availability[id]) || 0);
   var val = (parseInt(input.value) || 0) + delta;
   val = Math.max(0, Math.min(val, avail));
   input.value = val;
@@ -560,7 +588,7 @@ function changeQty(id, delta) {
 
 function onQtyChange(id) {
   var input = document.getElementById('qty-' + id);
-  var avail = Number(state.availability[id]) || 0;
+  var avail = id === 'other' ? CONFIG.OTHER_ASSET.max : (Number(state.availability[id]) || 0);
   var val = Math.max(0, Math.min(parseInt(input.value) || 0, avail));
   input.value = val;
   state.quantities[id] = val;
@@ -570,7 +598,7 @@ function onQtyChange(id) {
 }
 
 function checkAssetSelection() {
-  var anySelected = CONFIG.ASSETS.some(function(a) { return (state.quantities[a.id] || 0) > 0; });
+  var anySelected = CONFIG.ASSETS.some(function(a) { return (state.quantities[a.id] || 0) > 0; }) || ((state.quantities.other || 0) > 0);
   document.getElementById('btnToStep3').disabled = !anySelected;
 }
 
@@ -606,12 +634,16 @@ function validateInfo() {
     warn.innerHTML = '<div class="alert alert-warn">Please enter a valid email address.</div>';
     return false;
   }
+  if ((state.quantities.other || 0) > 0 && !document.getElementById('additionalInfo').value.trim()) {
+    warn.innerHTML = '<div class="alert alert-warn">You selected Other Asset. Please describe the requested asset in Additional Information.</div>';
+    return false;
+  }
   return true;
 }
 
 function renderReview() {
   var grid = document.getElementById('reviewGrid');
-  var selectedAssets = CONFIG.ASSETS.filter(function(a) { return (state.quantities[a.id] || 0) > 0; });
+  var selectedAssets = getSelectedAssets();
   var chips = selectedAssets.map(function(a) {
     return '<div class="review-asset-chip">' + a.name + ' x ' + state.quantities[a.id] + '</div>';
   }).join('');
@@ -622,9 +654,12 @@ function renderReview() {
     '<div class="review-item"><div class="review-label">Point of Contact</div><div class="review-value">' + document.getElementById('pocName').value + '</div></div>' +
     '<div class="review-item"><div class="review-label">Email</div><div class="review-value">' + document.getElementById('pocEmail').value + '</div></div>' +
     '<div class="review-item"><div class="review-label">Phone</div><div class="review-value">' + document.getElementById('pocPhone').value + '</div></div>' +
+    '<div class="review-item"><div class="review-label">GL String</div><div class="review-value">' + (document.getElementById('glString').value || 'None provided') + '</div></div>' +
+    '<div class="review-item"><div class="review-label">Index Code</div><div class="review-value">' + (document.getElementById('indexCode').value || 'None provided') + '</div></div>' +
     '<div class="review-item"><div class="review-label">Pickup Date</div><div class="review-value">' + formatDate(state.startDate) + '</div></div>' +
     '<div class="review-item"><div class="review-label">Return Date</div><div class="review-value">' + formatDate(state.endDate) + '</div></div>' +
-    '<div class="review-assets"><div class="review-label">Assets Requested</div><div class="review-asset-list">' + chips + '</div></div>';
+    '<div class="review-assets"><div class="review-label">Assets Requested</div><div class="review-asset-list">' + chips + '</div></div>' +
+    '<div class="review-assets"><div class="review-label">Additional Information</div><div class="review-value">' + (document.getElementById('additionalInfo').value || 'None provided') + '</div></div>';
 }
 
 async function submitRequest() {
@@ -635,7 +670,7 @@ async function submitRequest() {
   btn.innerHTML = '<span class="loading"></span> Submitting...';
 
   var refNum = 'HE-' + Date.now().toString(36).toUpperCase();
-  var selectedAssets = CONFIG.ASSETS.filter(function(a) { return (state.quantities[a.id] || 0) > 0; });
+  var selectedAssets = getSelectedAssets();
 
   var payload = {
     action: 'submitReservation',
@@ -645,6 +680,10 @@ async function submitRequest() {
     pocEmail:  document.getElementById('pocEmail').value.trim(),
     pocPhone:  document.getElementById('pocPhone').value.trim(),
     pocDept:   document.getElementById('pocDept').value.trim(),
+    glString:  document.getElementById('glString').value.trim(),
+    indexCode: document.getElementById('indexCode').value.trim(),
+    additionalInfo: document.getElementById('additionalInfo').value.trim(),
+    otherQuantity: state.quantities.other || 0,
     pickupDate: state.startDate,
     returnDate: state.endDate,
     quantities: state.quantities,
@@ -679,17 +718,17 @@ async function submitRequest() {
 function generateICS213(data, selectedAssets) {
   const { jsPDF } = window.jspdf;
 
-const doc = new jsPDF({
-  unit: 'pt',
-  format: 'letter',
-  compress: true
-});
+  const doc = new jsPDF({
+    unit: 'pt',
+    format: 'letter',
+    compress: true
+  });
 
   // Page setup
   const pageW = 612;
   const margin = 36;
   const formW = pageW - margin * 2;
-  let y = 30;
+  let y = 18;
 
   // Basic black-and-white FEMA-style form. No blue, no gold, no emojis.
   doc.setTextColor(0, 0, 0);
@@ -746,8 +785,7 @@ const doc = new jsPDF({
   }
 
   const x = margin;
-// Move entire ICS 213 form down
-y += 24;
+
   // Title
   textBold('GENERAL MESSAGE (ICS 213)', pageW / 2, y, 14, { align: 'center' });
   y += 16;
@@ -825,6 +863,11 @@ y += 24;
   msgLine(`RETURN DATE: ${formatDate(data.returnDate)}`);
   msgLine(`DEPT / ORG: ${data.pocDept}`);
   msgLine(`CONTACT: ${data.pocName} | ${data.pocEmail} | ${data.pocPhone}`);
+  msgLine(`GL STRING: ${data.glString || 'None provided'}`);
+  msgLine(`INDEX CODE: ${data.indexCode || 'None provided'}`);
+  if (data.additionalInfo) {
+    msgLine(`ADDITIONAL INFO: ${data.additionalInfo}`);
+  }
   msgY += 4;
   msgLine('STATUS: PENDING APPROVAL BY WAREHOUSE/LOGISTICS TEAM');
 
@@ -847,7 +890,7 @@ y += 24;
   y += approvedH;
 
   // 9. Reply
-  const replyH = 235;
+  const replyH = 205;
   drawBox(x, y, formW, replyH);
   textBold('9. Reply:', x + 6, y + 15);
   y += replyH;
@@ -892,6 +935,9 @@ function resetForm() {
   document.getElementById('pocEmail').value = '';
   document.getElementById('pocPhone').value = '';
   document.getElementById('pocDept').value = '';
+  document.getElementById('glString').value = '';
+  document.getElementById('indexCode').value = '';
+  document.getElementById('additionalInfo').value = '';
   document.getElementById('availContent').innerHTML = '<div class="avail-placeholder">Select dates above to check availability</div>';
   document.getElementById('dateDisplay').innerHTML = '';
   document.getElementById('btnToStep2').disabled = true;
