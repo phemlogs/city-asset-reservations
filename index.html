@@ -746,7 +746,8 @@ const doc = new jsPDF({
   }
 
   const x = margin;
-
+// Move entire ICS 213 form down
+y += 24;
   // Title
   textBold('GENERAL MESSAGE (ICS 213)', pageW / 2, y, 14, { align: 'center' });
   y += 16;
