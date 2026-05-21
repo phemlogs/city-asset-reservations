@@ -679,16 +679,17 @@ async function submitRequest() {
 function generateICS213(data, selectedAssets) {
   const { jsPDF } = window.jspdf;
 
-  const doc = new jsPDF({
-    unit: 'pt',
-    format: 'letter'
-  });
+const doc = new jsPDF({
+  unit: 'pt',
+  format: 'letter',
+  compress: true
+});
 
   // Page setup
   const pageW = 612;
   const margin = 36;
   const formW = pageW - margin * 2;
-  let y = 18;
+  let y = 22;
 
   // Basic black-and-white FEMA-style form. No blue, no gold, no emojis.
   doc.setTextColor(0, 0, 0);
@@ -789,7 +790,7 @@ function generateICS213(data, selectedAssets) {
   y += row456H;
 
   // 7. Message
-  const messageH = 295;
+  const messageH = 310;
   drawBox(x, y, formW, messageH);
   textBold('7. Message:', x + 6, y + 15);
 
