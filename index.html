@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>213 Reservation System</title>
+<title>City Asset Reservation System</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap');
@@ -236,7 +236,7 @@
   <div class="logo">
     <div class="logo-icon"></div>
     <div>
-      <div class="logo-text">213 Reservation System</div>
+      <div class="logo-text">City Asset Reservation System</div>
       <div class="logo-sub">Long Beach — Emergency Management</div>
     </div>
   </div>
@@ -244,7 +244,7 @@
 </header>
 
 <main>
-  <div class="page-title">Reserve <span>Emergency Management Assets</span></div>
+  <div class="page-title">Reserve <span>City Assets</span></div>
   <div class="page-sub">// CHAIRS · TABLES · CANOPIES · SAFE TRAILER · TV SCREEN TRAILER · PHOTO BOOTH</div>
 
   <div class="config-notice">
@@ -316,7 +316,7 @@
       <div class="field"><label>Email Address</label><input type="email" id="pocEmail" placeholder="your@email.gov"></div>
       <div class="field"><label>Phone Number</label><input type="tel" id="pocPhone" placeholder="(562) 000-0000"></div>
       <div class="field"><label>Department / Organization</label><input type="text" id="pocDept" placeholder="e.g. Parks and Recreation"></div>
-      <div class="field"><label>GL String</label><input type="text" id="glString" placeholder="For lost/damaged asset replacement costs, if applicable"></div>
+      <div class="field"><label>GL String *</label><input type="text" id="glString" placeholder="Required for lost/damaged asset replacement costs, if applicable"></div>
       <div class="field"><label>Index Code</label><input type="text" id="indexCode" placeholder="Required if logistics assistance is needed"></div>
       <div class="field" style="grid-column: 1 / -1;"><label>Additional Information</label><textarea id="additionalInfo" placeholder="Include setup details, special instructions, delivery needs, or the asset name if you selected Other."></textarea></div>
     </div>
@@ -622,8 +622,8 @@ function goToStep(n) {
 }
 
 function validateInfo() {
-  var fields = ['eventName','pocName','pocEmail','pocPhone','pocDept'];
-  var labels = ['Event Name','POC Name','Email','Phone','Department'];
+  var fields = ['eventName','pocName','pocEmail','pocPhone','pocDept','glString'];
+  var labels = ['Event Name','POC Name','Email','Phone','Department','GL String'];
   var warn = document.getElementById('infoWarning');
   for (var i = 0; i < fields.length; i++) {
     if (!document.getElementById(fields[i]).value.trim()) {
