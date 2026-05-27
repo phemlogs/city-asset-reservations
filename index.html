@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>City Asset Reservation System</title>
+<title>213 Reservation System</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap');
@@ -236,7 +236,7 @@
   <div class="logo">
     <div class="logo-icon"></div>
     <div>
-      <div class="logo-text">City Asset Reservation System</div>
+      <div class="logo-text">213 Reservation System</div>
       <div class="logo-sub">Long Beach — Emergency Management</div>
     </div>
   </div>
@@ -244,14 +244,14 @@
 </header>
 
 <main>
-  <div class="page-title">Reserve <span>City Assets</span></div>
+  <div class="page-title">Reserve <span>Emergency Management Assets</span></div>
   <div class="page-sub">// CHAIRS · TABLES · CANOPIES · SAFE TRAILER · TV SCREEN TRAILER · PHOTO BOOTH</div>
 
   <div class="config-notice">
     <strong>Disclaimer:</strong> All asset requests are subject to availability and approval by the Worsham Warehouse/Logistics team.
 
     Requesting departments are responsible for picking up and returning all approved assets. If pickup, delivery, setup, or retrieval assistance is needed from warehouse/logistics staff, the requesting department will be required to provide an index code to cover staff time and related costs.
-    <br><br>Requesting departments are fully responsible for any lost, damaged, or unreturned assets, including the full replacement cost if applicable. For questions regarding this form or the asset request process, please contact <strong>he-phem-distributioncenter@longbeach.gov</strong>
+    <br><br>Requesting departments are fully responsible for any lost, damaged, or unreturned assets, including the full replacement cost if applicable. For questions regarding this form or the asset request process, please contact the <strong>Warehouse/Logistics Line at 562-708-7619.</strong>
   </div>
 
   <div class="steps">
@@ -316,7 +316,9 @@
       <div class="field"><label>Email Address</label><input type="email" id="pocEmail" placeholder="your@email.gov"></div>
       <div class="field"><label>Phone Number</label><input type="tel" id="pocPhone" placeholder="(562) 000-0000"></div>
       <div class="field"><label>Department / Organization</label><input type="text" id="pocDept" placeholder="e.g. Parks and Recreation"></div>
-      <div class="field"><label>GL String</label><input type="text" id="glString" placeholder="Required for lost/damaged assets. N/A for non-city depts"></div>
+      <div class="field"><label>Pickup Time *</label><input type="time" id="pickupTime"></div>
+      <div class="field"><label>Return Time *</label><input type="time" id="returnTime"></div>
+      <div class="field"><label>GL String *</label><input type="text" id="glString" placeholder="Required for lost/damaged asset replacement costs, if applicable"></div>
       <div class="field"><label>Index Code</label><input type="text" id="indexCode" placeholder="Required if logistics assistance is needed"></div>
       <div class="field" style="grid-column: 1 / -1;"><label>Additional Information</label><textarea id="additionalInfo" placeholder="Include setup details, special instructions, delivery needs, or the asset name if you selected Other."></textarea></div>
     </div>
@@ -485,6 +487,17 @@ function formatDate(str) {
   return d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric', year:'numeric' });
 }
 
+function formatTime(str) {
+  if (!str) return '';
+  var parts = str.split(':');
+  var hour = Number(parts[0]);
+  var minute = parts[1] || '00';
+  var suffix = hour >= 12 ? 'PM' : 'AM';
+  var displayHour = hour % 12;
+  if (displayHour === 0) displayHour = 12;
+  return displayHour + ':' + minute + ' ' + suffix;
+}
+
 async function checkAvailability() {
   if (!state.startDate || !state.endDate) return;
   var content = document.getElementById('availContent');
@@ -622,8 +635,8 @@ function goToStep(n) {
 }
 
 function validateInfo() {
-  var fields = ['eventName','pocName','pocEmail','pocPhone','pocDept','glString'];
-  var labels = ['Event Name','POC Name','Email','Phone','Department','GL String'];
+  var fields = ['eventName','pocName','pocEmail','pocPhone','pocDept','pickupTime','returnTime','glString'];
+  var labels = ['Event Name','POC Name','Email','Phone','Department','Pickup Time','Return Time','GL String'];
   var warn = document.getElementById('infoWarning');
   for (var i = 0; i < fields.length; i++) {
     if (!document.getElementById(fields[i]).value.trim()) {
@@ -659,7 +672,9 @@ function renderReview() {
     '<div class="review-item"><div class="review-label">GL String</div><div class="review-value">' + (document.getElementById('glString').value || 'None provided') + '</div></div>' +
     '<div class="review-item"><div class="review-label">Index Code</div><div class="review-value">' + (document.getElementById('indexCode').value || 'None provided') + '</div></div>' +
     '<div class="review-item"><div class="review-label">Pickup Date</div><div class="review-value">' + formatDate(state.startDate) + '</div></div>' +
+    '<div class="review-item"><div class="review-label">Pickup Time</div><div class="review-value">' + formatTime(document.getElementById('pickupTime').value) + '</div></div>' +
     '<div class="review-item"><div class="review-label">Return Date</div><div class="review-value">' + formatDate(state.endDate) + '</div></div>' +
+    '<div class="review-item"><div class="review-label">Return Time</div><div class="review-value">' + formatTime(document.getElementById('returnTime').value) + '</div></div>' +
     '<div class="review-assets"><div class="review-label">Assets Requested</div><div class="review-asset-list">' + chips + '</div></div>' +
     '<div class="review-assets"><div class="review-label">Additional Information</div><div class="review-value">' + (document.getElementById('additionalInfo').value || 'None provided') + '</div></div>';
 }
@@ -687,7 +702,9 @@ async function submitRequest() {
     additionalInfo: document.getElementById('additionalInfo').value.trim(),
     otherQuantity: state.quantities.other || 0,
     pickupDate: state.startDate,
+    pickupTime: document.getElementById('pickupTime').value.trim(),
     returnDate: state.endDate,
+    returnTime: document.getElementById('returnTime').value.trim(),
     quantities: state.quantities,
     submittedAt: new Date().toISOString()
   };
@@ -861,8 +878,8 @@ function generateICS213(data, selectedAssets) {
 
   msgY += 4;
   msgLine(`EVENT: ${data.eventName}`);
-  msgLine(`PICKUP DATE: ${formatDate(data.pickupDate)}`);
-  msgLine(`RETURN DATE: ${formatDate(data.returnDate)}`);
+  msgLine(`PICKUP DATE/TIME: ${formatDate(data.pickupDate)} ${formatTime(data.pickupTime)}`);
+  msgLine(`RETURN DATE/TIME: ${formatDate(data.returnDate)} ${formatTime(data.returnTime)}`);
   msgLine(`DEPT / ORG: ${data.pocDept}`);
   msgLine(`CONTACT: ${data.pocName} | ${data.pocEmail} | ${data.pocPhone}`);
   msgLine(`GL STRING: ${data.glString || 'None provided'}`);
@@ -937,6 +954,8 @@ function resetForm() {
   document.getElementById('pocEmail').value = '';
   document.getElementById('pocPhone').value = '';
   document.getElementById('pocDept').value = '';
+  document.getElementById('pickupTime').value = '';
+  document.getElementById('returnTime').value = '';
   document.getElementById('glString').value = '';
   document.getElementById('indexCode').value = '';
   document.getElementById('additionalInfo').value = '';
